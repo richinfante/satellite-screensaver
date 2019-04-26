@@ -10,6 +10,7 @@
 		92AEF22DA924D88098916083 /* libPods-satellite-saver-2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC63E246742C6291F0BC09AC /* libPods-satellite-saver-2.a */; };
 		9B3A528D227324B900206513 /* thumbnail.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B3A528B227324B900206513 /* thumbnail.png */; };
 		9B3A528E227324B900206513 /* thumbnail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B3A528C227324B900206513 /* thumbnail@2x.png */; };
+		9B3A52902273319100206513 /* TLEFetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3A528F2273319100206513 /* TLEFetch.swift */; };
 		9B4E7EBE22729DD3008F8640 /* GeoJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4E7EBD22729DD3008F8640 /* GeoJSON.swift */; };
 		9B5AA079227262BD009CCD55 /* satellite_saver_2View.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B5AA078227262BD009CCD55 /* satellite_saver_2View.h */; };
 		9B5AA07B227262BD009CCD55 /* satellite_saver_2View.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B5AA07A227262BD009CCD55 /* satellite_saver_2View.m */; };
@@ -22,6 +23,7 @@
 		86B45B1E7B0D96D7687A8DAE /* Pods-satellite-saver-2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-satellite-saver-2.debug.xcconfig"; path = "Target Support Files/Pods-satellite-saver-2/Pods-satellite-saver-2.debug.xcconfig"; sourceTree = "<group>"; };
 		9B3A528B227324B900206513 /* thumbnail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thumbnail.png; sourceTree = "<group>"; };
 		9B3A528C227324B900206513 /* thumbnail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumbnail@2x.png"; sourceTree = "<group>"; };
+		9B3A528F2273319100206513 /* TLEFetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLEFetch.swift; sourceTree = "<group>"; };
 		9B4E7EBA22729DB8008F8640 /* world.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = world.json; sourceTree = "<group>"; };
 		9B4E7EBC22729DD2008F8640 /* satellite-saver-2-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "satellite-saver-2-Bridging-Header.h"; sourceTree = "<group>"; };
 		9B4E7EBD22729DD3008F8640 /* GeoJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoJSON.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 				9B5AA07C227262BD009CCD55 /* Info.plist */,
 				9B4E7EBA22729DB8008F8640 /* world.json */,
 				9B4E7EBD22729DD3008F8640 /* GeoJSON.swift */,
+				9B3A528F2273319100206513 /* TLEFetch.swift */,
 				9B4E7EBC22729DD2008F8640 /* satellite-saver-2-Bridging-Header.h */,
 			);
 			path = "satellite-saver-2";
@@ -211,6 +214,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B3A52902273319100206513 /* TLEFetch.swift in Sources */,
 				9B5AA07B227262BD009CCD55 /* satellite_saver_2View.m in Sources */,
 				9B4E7EBE22729DD3008F8640 /* GeoJSON.swift in Sources */,
 			);

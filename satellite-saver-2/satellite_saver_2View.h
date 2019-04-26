@@ -13,7 +13,8 @@
 @class GeoJSONFeature;
 @class GeoJSONGeometry;
 @class GeoJSONFeature;
+@class TLEFetcher;
 
 @interface satellite_saver_2View : ScreenSaverView
-
+@property (retain, nonatomic) TLEFetcher* tleFetcher;
 @end
