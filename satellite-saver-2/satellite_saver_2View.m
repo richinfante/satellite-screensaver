@@ -57,6 +57,8 @@
     // Name
     NSString* name = @"ISS (ZARYA)";
     
+    NSColor* trackColor = [NSColor greenColor];
+    
     
     // Get a cstring for the rust FFI.
     const char* _Nullable  tle_str = [tle cStringUsingEncoding:NSASCIIStringEncoding];
@@ -128,8 +130,8 @@
     }
     
     // Fill the path.
-    [[NSColor greenColor] setStroke];
-    [[NSColor greenColor] setFill];
+    [trackColor setStroke];
+    [trackColor setFill];
     [control1 setLineWidth: 1];
     [control1 stroke];
     
@@ -139,6 +141,10 @@
 
     // Fill the marker rectangle.
     CGFloat boxRad = 5;
+    if ([self isPreview]) {
+        boxRad = 2.5;
+    }
+
     NSRect marker_rect = NSMakeRect(current_pos_screen.x - boxRad, current_pos_screen.y - boxRad, boxRad * 2, boxRad * 2);
     NSRectFill(marker_rect);
     
@@ -151,20 +157,22 @@
     }];
     
     
-    // If it's too far to the right, switch to left aligned text.
-    NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-    CGFloat offset = boxRad * 4;
-    if (current_pos_screen.x + boxRad * boxRad + size.width > self.bounds.origin.x + self.bounds.size.width) {
-        style.alignment = NSTextAlignmentRight;
-        offset = -offset;
+    if (![self isPreview]) {
+        // If it's too far to the right, switch to left aligned text.
+        NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+        CGFloat offset = boxRad * 4;
+        if (current_pos_screen.x + boxRad * boxRad + size.width > self.bounds.origin.x + self.bounds.size.width) {
+            style.alignment = NSTextAlignmentRight;
+            offset = -offset;
+        }
+        
+        // Draw satellite info.
+        [formatted drawAtPoint:NSMakePoint(current_pos_screen.x + offset, current_pos_screen.y + boxRad / 2 - size.height / 2) withAttributes: @{
+            NSForegroundColorAttributeName: [NSColor whiteColor],
+            NSFontAttributeName: satelliteFont,
+            NSParagraphStyleAttributeName: style
+        }];
     }
-    
-    // Draw satellite info.
-    [formatted drawAtPoint:NSMakePoint(current_pos_screen.x + offset, current_pos_screen.y) withAttributes: @{
-        NSForegroundColorAttributeName: [NSColor whiteColor],
-        NSFontAttributeName: satelliteFont,
-        NSParagraphStyleAttributeName: style
-    }];
 
     [self setNeedsDisplay:YES];
 }
