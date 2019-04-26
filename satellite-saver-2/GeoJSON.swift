@@ -53,17 +53,12 @@ extension GeoJSONCollection {
 """
         let data = str.data(using: .ascii)!
         
-//        if let url = Bundle.main.url(forResource: "world", withExtension: "json") {
-            let res = try? JSONDecoder().decode(GeoJSONCollection.self, from: data)
-            
-            if let res = res {
-                return res
-            }
-            
-            return GeoJSONCollection()
-//        }
+        let res = try? JSONDecoder().decode(GeoJSONCollection.self, from: data)
         
-//        return GeoJSONCollection()
+        if let res = res {
+            return res
+        }
         
+        return GeoJSONCollection()
     }
 }

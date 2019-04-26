@@ -17,4 +17,7 @@
 
 @interface satellite_saver_2View : ScreenSaverView
 @property (retain, nonatomic) TLEFetcher* tleFetcher;
+@property (retain, nonatomic) NSString* fetchURL;
+@property (nonatomic) BOOL shortNameMode;
+@property (nonatomic) BOOL enableTextBackground;
 @end
