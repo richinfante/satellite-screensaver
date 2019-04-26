@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		9B5AA079227262BD009CCD55 /* satellite_saver_2View.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B5AA078227262BD009CCD55 /* satellite_saver_2View.h */; };
 		9B5AA07B227262BD009CCD55 /* satellite_saver_2View.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B5AA07A227262BD009CCD55 /* satellite_saver_2View.m */; };
+		9B5AA0842272677A009CCD55 /* rust in Resources */ = {isa = PBXBuildFile; fileRef = 9B5AA0832272677A009CCD55 /* rust */; };
+		9B848F5022726B5300512383 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B848F4F22726B5300512383 /* libresolv.tbd */; };
+		9B848F5122726B5F00512383 /* librust.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B5AA08822726B16009CCD55 /* librust.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -16,6 +19,10 @@
 		9B5AA078227262BD009CCD55 /* satellite_saver_2View.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = satellite_saver_2View.h; sourceTree = "<group>"; };
 		9B5AA07A227262BD009CCD55 /* satellite_saver_2View.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = satellite_saver_2View.m; sourceTree = "<group>"; };
 		9B5AA07C227262BD009CCD55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9B5AA0832272677A009CCD55 /* rust */ = {isa = PBXFileReference; lastKnownFileType = folder; path = rust; sourceTree = "<group>"; };
+		9B5AA08622726A74009CCD55 /* librust.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = librust.dylib; path = rust/target/release/librust.dylib; sourceTree = "<group>"; };
+		9B5AA08822726B16009CCD55 /* librust.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librust.a; path = rust/target/release/librust.a; sourceTree = "<group>"; };
+		9B848F4F22726B5300512383 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -23,6 +30,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B848F5122726B5F00512383 /* librust.a in Frameworks */,
+				9B848F5022726B5300512383 /* libresolv.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -32,8 +41,10 @@
 		9B5AA06B227262BD009CCD55 = {
 			isa = PBXGroup;
 			children = (
+				9B5AA0832272677A009CCD55 /* rust */,
 				9B5AA077227262BD009CCD55 /* satellite-saver-2 */,
 				9B5AA076227262BD009CCD55 /* Products */,
+				9B5AA08522726A73009CCD55 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -53,6 +64,16 @@
 				9B5AA07C227262BD009CCD55 /* Info.plist */,
 			);
 			path = "satellite-saver-2";
+			sourceTree = "<group>";
+		};
+		9B5AA08522726A73009CCD55 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9B848F4F22726B5300512383 /* libresolv.tbd */,
+				9B5AA08822726B16009CCD55 /* librust.a */,
+				9B5AA08622726A74009CCD55 /* librust.dylib */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -77,6 +98,7 @@
 				9B5AA071227262BD009CCD55 /* Sources */,
 				9B5AA072227262BD009CCD55 /* Frameworks */,
 				9B5AA073227262BD009CCD55 /* Resources */,
+				9B5AA08222726664009CCD55 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -123,10 +145,31 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B5AA0842272677A009CCD55 /* rust in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9B5AA08222726664009CCD55 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "open /Users/rich/Library/Developer/Xcode/DerivedData/satellite-saver-2-ghnkhouvpjcoakeyblihtxtchghk/Build/Products/Debug/satellite-saver-2.saver\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9B5AA071227262BD009CCD55 /* Sources */ = {
@@ -259,6 +302,7 @@
 				DEVELOPMENT_TEAM = 7A264T7MNQ;
 				INFOPLIST_FILE = "satellite-saver-2/Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/rust/target/release";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.richinfante.satellite-saver-2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = saver;
@@ -273,6 +317,7 @@
 				DEVELOPMENT_TEAM = 7A264T7MNQ;
 				INFOPLIST_FILE = "satellite-saver-2/Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/rust/target/release";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.richinfante.satellite-saver-2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = saver;
