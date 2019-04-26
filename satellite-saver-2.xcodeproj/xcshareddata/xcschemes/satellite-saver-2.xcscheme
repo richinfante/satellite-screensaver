@@ -42,16 +42,6 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <PreActions>
-         <ExecutionAction
-            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
-            <ActionContent
-               title = "Run Script"
-               scriptText = "SCREEN_SAVER_PATH=&quot;${HOME}/Library/Screen Savers/${FULL_PRODUCT_NAME}&quot;&#10;if [[ -d &quot;${SCREEN_SAVER_PATH}&quot; || -f &quot;${SCREEN_SAVER_PATH}&quot; || -L &quot;${SCREEN_SAVER_PATH}&quot; ]]; then&#10;rm -Rf &quot;${SCREEN_SAVER_PATH}&quot;&#10;fi&#10;ln -s &quot;${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}&quot; &quot;${SCREEN_SAVER_PATH}&quot;&#10;"
-               shellToInvoke = "/bin/bash">
-            </ActionContent>
-         </ExecutionAction>
-      </PreActions>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
