@@ -6,6 +6,8 @@
 //  Copyright © 2019 Rich Infante. All rights reserved.
 //
 
+// GEOJSON FROM: https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_110m_coastline.geojson
+
 #import "satellite_saver_2View.h"
 #import "../rust/src/bridge.h"
 
@@ -48,7 +50,8 @@
     // Define the screen coordinate space.
     NSRect bounds = NSMakeRect(self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height);
     
-    // Save a TLE.
+    // Specify TLE
+    // TODO: load from interwebs.
     NSString*tle = @"ISS (ZARYA)\n1 25544U 98067A   19115.51040572  .00001427  00000-0  30272-4 0  9993\n2 25544  51.6409 263.0334 0001111 214.7214 223.5370 15.52589973167070";
     
     // Name
@@ -69,9 +72,36 @@
     // Run the predictions
     struct Track t = run_prediction((char*) tle_str);
     
+    
     // Fill background.
     [[NSColor blackColor] setFill];
     NSRectFill(self.bounds);
+    
+    // Load world geo
+    GeoJSONCollection * geo = [GeoJSONCollection world_geo];
+    
+    // Plot world geojson geometry.
+    NSBezierPath *control0 = [NSBezierPath bezierPath];;
+    for (int i = 0; i < [geo.features count]; i++) {
+        GeoJSONFeature * feature = geo.features[i];
+        
+        [control0 removeAllPoints];
+        
+        // Just assume all geometry is a set of lines.
+        for (int j = 0; j < [feature.geometry.coordinates count] - 1; j++) {
+            GeoJSONGeometry * geometry = feature.geometry;
+            NSPoint p0_init = [geometry point_atIndex:j];
+            NSPoint p0 = [self convertCoordinateSpace:&p0_init fromSpace:&gpscoord toSpace: &bounds];
+            NSPoint p1_init = [geometry point_atIndex:j+1];
+            NSPoint p1 = [self convertCoordinateSpace:&p1_init fromSpace:&gpscoord toSpace: &bounds];
+            [control0 moveToPoint: p0];
+            [control0 lineToPoint: p1];
+        }
+
+        [[NSColor colorWithWhite:0.2 alpha:1.0] setStroke];
+        [control0 setLineWidth: 1];
+        [control0 stroke];
+    }
     
     // Create a bezier path for the space track.
     NSBezierPath *control1 = [NSBezierPath bezierPath];

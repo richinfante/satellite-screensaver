@@ -7,6 +7,12 @@
 //
 
 #import <ScreenSaver/ScreenSaver.h>
+#import "satellite_saver_2-Swift.h"
+
+@class GeoJSONCollection;
+@class GeoJSONFeature;
+@class GeoJSONGeometry;
+@class GeoJSONFeature;
 
 @interface satellite_saver_2View : ScreenSaverView
 
