@@ -69,7 +69,7 @@
         return;
     }
     
-    // Run the predictions
+    // Run the predictions BEFORE any other rendering.
     struct Track t = run_prediction((char*) tle_str);
     
     
@@ -145,10 +145,25 @@
     // Create a string for the current position info.
     NSString* formatted = [NSString stringWithFormat: @"%@\nlat: %f°\nlng: %f°\nalt: %f km", name, t.current.latitude, t.current.longitude, t.current.altitude];
     
+    NSFont* satelliteFont = [NSFont fontWithName:@"Menlo" size:12.0];
+    NSSize size = [formatted sizeWithAttributes: @{
+      NSFontAttributeName: satelliteFont
+    }];
+    
+    
+    // If it's too far to the right, switch to left aligned text.
+    NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+    CGFloat offset = boxRad * 4;
+    if (current_pos_screen.x + boxRad * boxRad + size.width > self.bounds.origin.x + self.bounds.size.width) {
+        style.alignment = NSTextAlignmentRight;
+        offset = -offset;
+    }
+    
     // Draw satellite info.
-    [formatted drawAtPoint:NSMakePoint(current_pos_screen.x + boxRad * 4, current_pos_screen.y) withAttributes: @{
+    [formatted drawAtPoint:NSMakePoint(current_pos_screen.x + offset, current_pos_screen.y) withAttributes: @{
         NSForegroundColorAttributeName: [NSColor whiteColor],
-        NSFontAttributeName: [NSFont fontWithName:@"Menlo" size:12.0]
+        NSFontAttributeName: satelliteFont,
+        NSParagraphStyleAttributeName: style
     }];
 
     [self setNeedsDisplay:YES];
