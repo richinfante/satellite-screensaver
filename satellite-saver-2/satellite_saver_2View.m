@@ -40,24 +40,6 @@
     [super stopAnimation];
 }
 
-//- (NSString *) getDataFrom:(NSString *)url{
-//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-//    [request setHTTPMethod:@"GET"];
-//    [request setURL:[NSURL URLWithString:url]];
-//    
-//    NSError *error = nil;
-//    NSHTTPURLResponse *responseCode = nil;
-//    
-//    NSData *oResponseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&responseCode error:&error];
-//    
-//    if([responseCode statusCode] != 200){
-//        NSLog(@"Error getting %@, HTTP status code %li", url, (long)[responseCode statusCode]);
-//        return nil;
-//    }
-//    
-//    return [[NSString alloc] initWithData:oResponseData encoding:NSUTF8StringEncoding];
-//}
-
 - (void)drawMap {
     // Define the GPS Coordinate Space, relative to the screen.
     NSRect gpscoord = NSMakeRect(-180.0, -90.0, 360.0, 180.0);
