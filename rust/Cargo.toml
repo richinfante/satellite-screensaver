@@ -8,8 +8,5 @@ edition = "2018"
 crate-type = ["staticlib", "cdylib"]
 
 [dependencies]
-satellite = { path = "../../satellite-rs" }
+satellite = { git = "https://github.com/richinfante/satellite-rs.git", branch = "master" }
 chrono = "0.4"
-reqwest = "0.9.12"
-space-plot = { path = "../../space-plot" }
-rand = "0.6.5"

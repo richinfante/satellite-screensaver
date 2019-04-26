@@ -2,8 +2,6 @@ extern crate satellite;
 extern crate chrono;
 use chrono::prelude::*;
 use chrono::Duration;
-use space_plot::Color;
-use rand::Rng;
 
 use std::os::raw::*;
 use std::ffi::{CString, CStr};

@@ -181,7 +181,7 @@
         CGFloat offset = boxRad * 4;
         if (current_pos_screen.x + boxRad * boxRad + size.width > self.bounds.origin.x + self.bounds.size.width) {
             style.alignment = NSTextAlignmentRight;
-            offset = -offset;
+            offset = -offset + - size.width;
         }
         
         // Draw satellite info.
