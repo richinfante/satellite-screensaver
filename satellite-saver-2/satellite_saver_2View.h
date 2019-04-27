@@ -17,4 +17,23 @@
 
 @interface satellite_saver_2View : ScreenSaverView
 @property (retain, nonatomic) TLEFetcher* tleFetcher;
+
+@property (retain, nonatomic) NSString* customURL;
+@property (retain, nonatomic) NSString* filterSatellites;
+@property (nonatomic) BOOL enableDetailedLabels;
+@property (nonatomic) BOOL enableLabelBackgrounds;
+@property (nonatomic) BOOL enableTracks;
+
+@property (strong) IBOutlet id configSheet;
+
+@property (strong)  IBOutlet NSButton *enableDetailedLabelsField;
+@property (strong)  IBOutlet NSButton *enableLabelBackgroundsField;
+@property (strong)  IBOutlet NSButton *enableTracksField;
+@property (strong)  IBOutlet NSTextField *customURLField;
+@property (strong)  IBOutlet NSTextField *filterSatellitesField;
+
+
+- (IBAction)configSheetCancelAction:(id)sender;
+- (IBAction)configSheetOKAction:(id)sender;
+
 @end
