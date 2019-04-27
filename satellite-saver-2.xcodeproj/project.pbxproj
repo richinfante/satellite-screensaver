@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		92AEF22DA924D88098916083 /* libPods-satellite-saver-2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC63E246742C6291F0BC09AC /* libPods-satellite-saver-2.a */; };
+		9B052E122273BC5400ECA3B9 /* ConfigureSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B052E112273BC5400ECA3B9 /* ConfigureSheet.xib */; };
+		9B052E162273D9A300ECA3B9 /* ScreenSaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B052E152273D9A300ECA3B9 /* ScreenSaver.framework */; };
+		9B052E182273E22A00ECA3B9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B052E172273E22A00ECA3B9 /* Cocoa.framework */; };
 		9B3A528D227324B900206513 /* thumbnail.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B3A528B227324B900206513 /* thumbnail.png */; };
 		9B3A528E227324B900206513 /* thumbnail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B3A528C227324B900206513 /* thumbnail@2x.png */; };
 		9B3A52902273319100206513 /* TLEFetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3A528F2273319100206513 /* TLEFetch.swift */; };
@@ -21,6 +24,9 @@
 /* Begin PBXFileReference section */
 		0E454E2A82FAD952B768A3C7 /* Pods-satellite-saver-2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-satellite-saver-2.release.xcconfig"; path = "Target Support Files/Pods-satellite-saver-2/Pods-satellite-saver-2.release.xcconfig"; sourceTree = "<group>"; };
 		86B45B1E7B0D96D7687A8DAE /* Pods-satellite-saver-2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-satellite-saver-2.debug.xcconfig"; path = "Target Support Files/Pods-satellite-saver-2/Pods-satellite-saver-2.debug.xcconfig"; sourceTree = "<group>"; };
+		9B052E112273BC5400ECA3B9 /* ConfigureSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfigureSheet.xib; sourceTree = "<group>"; };
+		9B052E152273D9A300ECA3B9 /* ScreenSaver.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScreenSaver.framework; path = System/Library/Frameworks/ScreenSaver.framework; sourceTree = SDKROOT; };
+		9B052E172273E22A00ECA3B9 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		9B3A528B227324B900206513 /* thumbnail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thumbnail.png; sourceTree = "<group>"; };
 		9B3A528C227324B900206513 /* thumbnail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumbnail@2x.png"; sourceTree = "<group>"; };
 		9B3A528F2273319100206513 /* TLEFetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLEFetch.swift; sourceTree = "<group>"; };
@@ -43,6 +49,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B052E182273E22A00ECA3B9 /* Cocoa.framework in Frameworks */,
+				9B052E162273D9A300ECA3B9 /* ScreenSaver.framework in Frameworks */,
 				9B848F5122726B5F00512383 /* librust.a in Frameworks */,
 				9B848F5022726B5300512383 /* libresolv.tbd in Frameworks */,
 				92AEF22DA924D88098916083 /* libPods-satellite-saver-2.a in Frameworks */,
@@ -83,6 +91,7 @@
 				9B4E7EBD22729DD3008F8640 /* GeoJSON.swift */,
 				9B3A528F2273319100206513 /* TLEFetch.swift */,
 				9B4E7EBC22729DD2008F8640 /* satellite-saver-2-Bridging-Header.h */,
+				9B052E112273BC5400ECA3B9 /* ConfigureSheet.xib */,
 			);
 			path = "satellite-saver-2";
 			sourceTree = "<group>";
@@ -90,6 +99,8 @@
 		9B5AA08522726A73009CCD55 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9B052E172273E22A00ECA3B9 /* Cocoa.framework */,
+				9B052E152273D9A300ECA3B9 /* ScreenSaver.framework */,
 				9B848F4F22726B5300512383 /* libresolv.tbd */,
 				9B5AA08822726B16009CCD55 /* librust.a */,
 				9B5AA08622726A74009CCD55 /* librust.dylib */,
@@ -178,6 +189,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B052E122273BC5400ECA3B9 /* ConfigureSheet.xib in Resources */,
 				9B3A528E227324B900206513 /* thumbnail@2x.png in Resources */,
 				9B3A528D227324B900206513 /* thumbnail.png in Resources */,
 			);

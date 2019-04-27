@@ -52,7 +52,14 @@ import Cocoa
         super.init()
     }
     
-    func get_tles (fromURL: String) -> [TLE] {
+    func reload() {
+        self.tles = []
+        self.fetched = false
+        self.is_fetching = false
+    }
+    
+    func get_tles (fromURL: String, filteringNames: String) -> [TLE] {
+        let filtering = filteringNames.components(separatedBy: ",").filter({ $0 != "" });
         if fetched {
             return tles
         }
@@ -81,6 +88,18 @@ import Cocoa
                     break
                 }
                 
+                if filtering.count > 0 {
+                    var found = false
+                    for item in filtering {
+                        if item.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) == stringToSplit[i].trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) {
+                            found = true
+                        }
+                    }
+                    
+                    if !found {
+                        continue
+                    }
+                }
                 let tle = TLE(name: stringToSplit[i], lines: "\(stringToSplit[i])\n\(stringToSplit[i+1])\n\(stringToSplit[i+2])")
                 
                 DispatchQueue.main.async {
@@ -99,38 +118,4 @@ import Cocoa
         
         return []
     }
-    
-//    /// Fetch iss tle
-//    func fetch_iss() -> String? {
-//        // Return nil while loading
-//        if self.is_fetching {
-//            return nil
-//        }
-//
-//        // If loaded, return lines.
-//        if let lines = self.lines {
-//            return lines
-//        }
-//
-//        // Load from internet.
-//        self.is_fetching = true
-//        guard let url = URL(string: "https://celestrak.richinfante.com/stations.txt") else {
-//            return nil
-//        }
-//
-//        // TODO: make this request asynchronous.
-//        // It currently works, but hangs the first drawRect: call until the request fails / completes.
-//        guard let data = try? Data(contentsOf: url), let string = String(data: data, encoding: .utf8) else {
-//            return nil
-//        }
-//
-//        // Extract first 3 lines / name.
-//        let stringToSplit = string.components(separatedBy: "\n")
-//        self.lines = "\(stringToSplit[0])\n\(stringToSplit[1])\n\(stringToSplit[2])"
-//        self.name = stringToSplit[0]
-//        self.is_fetching = false
-//
-//        return self.lines
-//
-//    }
 }

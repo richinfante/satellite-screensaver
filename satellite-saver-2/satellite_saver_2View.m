@@ -13,16 +13,18 @@
 
 @implementation satellite_saver_2View
 @synthesize tleFetcher;
-@synthesize shortNameMode;
-@synthesize enableTextBackground;
+@synthesize configSheet;
+@synthesize enableDetailedLabels, enableDetailedLabelsField;
+@synthesize enableLabelBackgrounds, enableLabelBackgroundsField;
+@synthesize enableTracks, enableTracksField;
+@synthesize filterSatellites, filterSatellitesField;
+@synthesize customURL, customURLField;
 
 - (instancetype)initWithFrame:(NSRect)frame isPreview:(BOOL)isPreview
 {
     self = [super initWithFrame:frame isPreview:isPreview];
     if (self) {
         self.tleFetcher = [[TLEFetcher alloc] init];
-        self.shortNameMode = YES;
-        self.enableTextBackground = YES;
         [self setAnimationTimeInterval:1.0];
         
         ScreenSaverDefaults *defaults;
@@ -30,15 +32,20 @@
         
         // Register our default values
         [defaults registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
-                                    @NO, @"enableTextBackground",
-                                    @NO, @"shortNameMode",
-                                    @"https://celestrak.richinfante.com/stations", @"fetchURL",
+                                    @NO, @"enableLabelBackgrounds",
+                                    @YES, @"enableDetailedLabels",
+                                    @YES, @"enableTracks",
+                                    @"ISS (ZARYA)", @"filterSatellites",
+                                    @"https://celestrak.richinfante.com/stations.txt", @"customURL",
                                     nil]];
         
-        self.shortNameMode = [defaults boolForKey:@"shortNameMode"];
-        self.enableTextBackground = [defaults boolForKey:@"enableTextBackground"];
-        self.fetchURL = [defaults stringForKey:@"fetchURL"];
-
+        
+        // Load defaults
+        self.enableLabelBackgrounds = [defaults boolForKey:@"enableLabelBackgrounds"];
+        self.enableDetailedLabels = [defaults boolForKey:@"enableDetailedLabels"];
+        self.enableTracks = [defaults boolForKey:@"enableTracks"];
+        self.customURL = [defaults stringForKey:@"customURL"];
+        self.filterSatellites = [defaults stringForKey:@"filterSatellites"];
     }
     return self;
 }
@@ -104,7 +111,6 @@
     
     // Define the screen coordinate space.
     NSRect bounds = NSMakeRect(self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height);
-    NSFont* satelliteFont = [NSFont fontWithName:@"Menlo" size:12.0];
     
     struct TrackPoint current = [tle get_current_point];
     // Convert current pos.
@@ -144,7 +150,7 @@
     // Create a string for the current position info.
     NSString* formatted;
     
-    if (self.shortNameMode) {
+    if (!self.enableDetailedLabels) {
         formatted = [tle.name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     } else {
         formatted = [NSString stringWithFormat: @"%@\nlat: %f°\nlng: %f°\nalt: %f km", tle.name, current.latitude, current.longitude, current.altitude];
@@ -165,7 +171,7 @@
     
     NSPoint atPoint = NSMakePoint(current_pos_screen.x + offset, current_pos_screen.y + boxRad / 2 - size.height / 2);
     
-    if (self.enableTextBackground) {
+    if (self.enableLabelBackgrounds) {
         NSRect textBg = NSMakeRect(atPoint.x - 2, atPoint.y - 2, size.width + 4, size.height + 4);
         
         [[NSColor blackColor] setFill];
@@ -207,7 +213,7 @@
         
         // If they're very far away, it's likely because it wraps the screen.
         // To prevent the bezier curve making a line across, move instead of line.
-        if (dist < 120) {
+        if (dist < 180) {
             [control1 lineToPoint:p1];
         } else {
             [control1 moveToPoint:p1];
@@ -225,12 +231,7 @@
 - (void)drawRect:(NSRect)rect
 {
     
-    NSArray* tles = [self.tleFetcher get_tlesFromURL:self.fetchURL];
-    
-//    NSString* status = [NSString stringWithFormat:@"%lu tles! fetching:%d fetched:%d err: %d, called: %d", [self.tleFetcher.tles count], tleFetcher.is_fetching, tleFetcher.fetched, tleFetcher.fetch_error, tleFetcher.called];
-//    [status drawAtPoint:NSMakePoint(100, 100) withAttributes:@ {
-//        NSForegroundColorAttributeName: [NSColor whiteColor]
-//    }];
+    NSArray* tles = [self.tleFetcher get_tlesFromURL:self.customURL filteringNames:self.filterSatellites];
     
     // For each loaded TLE, setup a new track.
     for (TLE* tle in tles) {
@@ -246,19 +247,21 @@
     // Draw map
     [self drawMap];
     
-    // Draw track
-    for (TLE* tle in tles) {
-        [self drawTrack: tle];
+    if (self.enableTracks) {
+        // Draw track
+        for (TLE* tle in [tles reverseObjectEnumerator]) {
+            [self drawTrack: tle];
+        }
     }
     
     // Draw markers.
-    for (TLE* tle in tles) {
+    for (TLE* tle in [tles reverseObjectEnumerator]) {
         [self drawMarker: tle];
     }
 
     if (![self isPreview]) {
         // Draw marker texts
-        for (TLE* tle in tles) {
+        for (TLE* tle in [tles reverseObjectEnumerator]) {
             [self drawMarkerText: tle];
         }
     }
@@ -272,14 +275,73 @@
     return;
 }
 
++ (BOOL)performGammaFade {
+    return NO;
+}
+
 - (BOOL)hasConfigureSheet
 {
-    return NO;
+    return YES;
 }
 
 - (NSWindow*)configureSheet
 {
-    return nil;
+    ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:@"SatelliteSaver"];
+    
+    if (self.configSheet == nil)
+    {
+        NSArray *topLevelObjects;
+        
+        if (![[NSBundle bundleForClass:[self class]] loadNibNamed:@"ConfigureSheet" owner:self topLevelObjects:&topLevelObjects])
+        {
+            NSLog( @"Failed to load configure sheet." );
+            NSBeep();
+        }
+    }
+    
+    // Initialize elements to saved values.
+    [self.enableTracksField setState: [defaults boolForKey:@"enableTracks"] ? NSControlStateValueOn : NSControlStateValueOff ];
+    [self.enableLabelBackgroundsField setState: [defaults boolForKey:@"enableLabelBackgrounds"] ? NSControlStateValueOn : NSControlStateValueOff ];
+    [self.enableDetailedLabelsField setState: [defaults boolForKey:@"enableDetailedLabels"] ? NSControlStateValueOn : NSControlStateValueOff ];
+    [self.customURLField setStringValue: [defaults stringForKey:@"customURL"]];
+    [self.filterSatellitesField setStringValue: [defaults stringForKey:@"filterSatellites"]];
+    
+    return self.configSheet;
+}
+
+- (IBAction)configSheetCancelAction:(id)sender {
+    if ([NSWindow respondsToSelector:@selector(endSheet:)])
+    {
+        [[self.configSheet sheetParent] endSheet:self.configSheet returnCode:NSModalResponseCancel];
+    } else {
+        [[NSApplication sharedApplication] endSheet:self.configSheet];
+    }
+}
+
+- (IBAction)configSheetOKAction:(id)sender {
+
+    ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:@"SatelliteSaver"];
+    
+    // Load defaults into current view.
+    self.enableDetailedLabels = [self.enableDetailedLabelsField state] == NSControlStateValueOn;
+    self.enableLabelBackgrounds = [self.enableLabelBackgroundsField state] == NSControlStateValueOn;
+    self.customURL = [self.customURLField stringValue];
+    self.filterSatellites = [self.filterSatellitesField stringValue];
+    self.enableTracks = [self.enableTracksField state] == NSControlStateValueOn;
+
+    // Reload defaults
+    [defaults setBool: self.enableDetailedLabels forKey:@"enableDetailedLabels"];
+    [defaults setBool: self.enableLabelBackgrounds forKey:@"enableLabelBackgrounds"];
+    [defaults setBool: self.enableTracks forKey:@"enableTracks"];
+    [defaults setValue: self.customURL forKey:@"customURL"];
+    [defaults setValue: self.filterSatellites forKey:@"filterSatellites"];
+    [defaults synchronize];
+    
+    // Issue refresh of TLEs.
+    [self.tleFetcher reload];
+    
+    // Cancel the sheet.
+    [self configSheetCancelAction:sender];
 }
 
 @end
