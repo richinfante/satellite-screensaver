@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9B5AA074227262BD009CCD55"
-               BuildableName = "satellite-saver-2.saver"
+               BuildableName = "Satellite.saver"
                BlueprintName = "satellite-saver-2"
                ReferencedContainer = "container:satellite-saver-2.xcodeproj">
             </BuildableReference>
@@ -46,7 +46,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9B5AA074227262BD009CCD55"
-            BuildableName = "satellite-saver-2.saver"
+            BuildableName = "Satellite.saver"
             BlueprintName = "satellite-saver-2"
             ReferencedContainer = "container:satellite-saver-2.xcodeproj">
          </BuildableReference>
@@ -64,7 +64,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9B5AA074227262BD009CCD55"
-            BuildableName = "satellite-saver-2.saver"
+            BuildableName = "Satellite.saver"
             BlueprintName = "satellite-saver-2"
             ReferencedContainer = "container:satellite-saver-2.xcodeproj">
          </BuildableReference>
