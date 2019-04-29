@@ -372,6 +372,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 86B45B1E7B0D96D7687A8DAE /* Pods-satellite-saver-2.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -397,6 +398,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0E454E2A82FAD952B768A3C7 /* Pods-satellite-saver-2.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
