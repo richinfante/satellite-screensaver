@@ -19,12 +19,13 @@ import Cocoa
     // Store track
     var track: Track! = nil
     
-    var trackColor: NSColor = NSColor.green
+    var trackColor: NSColor
     
-    init(name: String, lines: String) {
-        super.init()
+    init(name: String, lines: String, trackColor: NSColor) {
+        self.trackColor = trackColor
         self.name = name
         self.lines = lines
+        super.init()
     }
     
     @objc func set_track(track: Track) {
@@ -47,6 +48,17 @@ import Cocoa
     var is_fetching: Bool = false
     var fetched: Bool = false
     var fetch_error = false
+    
+    let colors = [
+        NSColor.red,
+        NSColor.orange,
+        NSColor.yellow,
+        NSColor.green,
+        NSColor.blue,
+        NSColor.purple,
+        NSColor.white,
+        NSColor.gray
+    ]
 
     override init() {
         super.init()
@@ -58,7 +70,12 @@ import Cocoa
         self.is_fetching = false
     }
     
-    func get_tles (fromURL: String, filteringNames: String) -> [TLE] {
+    func colorForTrack(at: Int) -> NSColor {
+        let index = at % colors.count;
+        return self.colors[index]
+    }
+    
+    func get_tles (fromURL: String, filteringNames: String, randomizingColors: Bool, defaultColor: NSColor) -> [TLE] {
         let filtering = filteringNames.components(separatedBy: ",").filter({ $0 != "" });
         if fetched {
             return tles
@@ -100,9 +117,18 @@ import Cocoa
                         continue
                     }
                 }
-                let tle = TLE(name: stringToSplit[i], lines: "\(stringToSplit[i])\n\(stringToSplit[i+1])\n\(stringToSplit[i+2])")
-                
+                var trackColor: NSColor!;
+                if randomizingColors {
+                    trackColor = self.colorForTrack(at: self.tles.count)
+                } else {
+                    trackColor = defaultColor;
+                }
+
+                let tle = TLE(name: stringToSplit[i], lines: "\(stringToSplit[i])\n\(stringToSplit[i+1])\n\(stringToSplit[i+2])", trackColor: trackColor)
+            
                 DispatchQueue.main.async {
+                    
+
                     self.tles.append(tle)
                 }
             }

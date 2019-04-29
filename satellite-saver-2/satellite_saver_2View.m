@@ -37,17 +37,75 @@
                                     @YES, @"enableTracks",
                                     @"ISS (ZARYA)", @"filterSatellites",
                                     @"https://celestrak.richinfante.com/stations.txt", @"customURL",
+                                    @"00ff00", @"trackColor",
+                                    @"000000", @"backgroundColor",
+                                    @"333333", @"mapColor",
+                                    @"ffffff", @"textColor",
                                     nil]];
         
-        
-        // Load defaults
-        self.enableLabelBackgrounds = [defaults boolForKey:@"enableLabelBackgrounds"];
-        self.enableDetailedLabels = [defaults boolForKey:@"enableDetailedLabels"];
-        self.enableTracks = [defaults boolForKey:@"enableTracks"];
-        self.customURL = [defaults stringForKey:@"customURL"];
-        self.filterSatellites = [defaults stringForKey:@"filterSatellites"];
+        [self loadDefaults];
     }
     return self;
+}
+
+
+- (IBAction)restoreDefaults:(id)sender {
+    ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:@"SatelliteSaver"];
+    [defaults setBool:NO forKey:@"enableLabelBackgrounds"];
+    [defaults setBool:YES forKey:@"enableDetailedLabels"];
+    [defaults setBool:YES  forKey: @"enableTracks"];
+    [defaults setValue:@"ISS (ZARYA)" forKey:@"filterSatellites"];
+    [defaults setValue:@"https://celestrak.richinfante.com/stations.txt" forKey:@"customURL"];
+    [defaults setValue:@"00ff00" forKey:@"trackColor"];
+    [defaults setValue:@"000000" forKey:@"backgroundColor"];
+    [defaults setValue:@"333333" forKey:@"mapColor"];
+    [defaults setValue:@"ffffff" forKey:@"textColor"];
+    [defaults synchronize];
+    
+    [self loadDefaults];
+    [self loadDefaultsForEditing];
+}
+
+-(void) loadDefaults {
+    // Load defaults
+    ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:@"SatelliteSaver"];
+    self.enableLabelBackgrounds = [defaults boolForKey:@"enableLabelBackgrounds"];
+    self.enableDetailedLabels = [defaults boolForKey:@"enableDetailedLabels"];
+    self.enableTracks = [defaults boolForKey:@"enableTracks"];
+    self.customURL = [defaults stringForKey:@"customURL"];
+    self.filterSatellites = [defaults stringForKey:@"filterSatellites"];
+    self.trackColor = [[NSColor alloc] initWithHex: [defaults stringForKey:@"trackColor"]];
+    self.backgroundColor = [[NSColor alloc] initWithHex: [defaults stringForKey:@"backgroundColor"]];
+    self.mapColor = [[NSColor alloc] initWithHex: [defaults stringForKey:@"mapColor"]];
+    self.textColor = [[NSColor alloc] initWithHex: [defaults stringForKey:@"textColor"]];
+}
+
+-(void) loadDefaultsForEditing {
+    // Initialize elements to saved values.
+    [self.enableTracksField setState: self.enableTracks ? NSControlStateValueOn : NSControlStateValueOff ];
+    [self.enableLabelBackgroundsField setState: self.enableLabelBackgrounds ? NSControlStateValueOn : NSControlStateValueOff ];
+    [self.enableDetailedLabelsField setState: self.enableDetailedLabels ? NSControlStateValueOn : NSControlStateValueOff ];
+    [self.customURLField setStringValue: self.customURL];
+    [self.filterSatellitesField setStringValue: self.filterSatellites];
+    [self.trackColorField setColor: self.trackColor];
+    [self.mapColorField setColor: self.mapColor];
+    [self.backgroundColorField setColor: self.backgroundColor];
+    [self.textColorField setColor: self.textColor];
+}
+
+-(void) saveDefaults {
+    // Reload defaults
+    ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:@"SatelliteSaver"];
+    [defaults setBool: self.enableDetailedLabels forKey:@"enableDetailedLabels"];
+    [defaults setBool: self.enableLabelBackgrounds forKey:@"enableLabelBackgrounds"];
+    [defaults setBool: self.enableTracks forKey:@"enableTracks"];
+    [defaults setValue: self.customURL forKey:@"customURL"];
+    [defaults setValue: self.filterSatellites forKey:@"filterSatellites"];
+    [defaults setValue: [self.trackColor toHexString] forKey:@"trackColor"];
+    [defaults setValue: [self.mapColor toHexString] forKey:@"mapColor"];
+    [defaults setValue: [self.backgroundColor toHexString] forKey:@"backgroundColor"];
+    [defaults setValue: [self.textColor toHexString] forKey:@"textColor"];
+    [defaults synchronize];
 }
 
 // Convert from one coordinate space to another.
@@ -95,7 +153,7 @@
             [control0 lineToPoint: p1];
         }
         
-        [[NSColor colorWithWhite:0.2 alpha:1.0] setStroke];
+        [[self mapColor] setStroke];
         [control0 setLineWidth: 1];
         [control0 stroke];
         
@@ -174,8 +232,8 @@
     if (self.enableLabelBackgrounds) {
         NSRect textBg = NSMakeRect(atPoint.x - 2, atPoint.y - 2, size.width + 4, size.height + 4);
         
-        [[NSColor blackColor] setFill];
-        [[NSColor darkGrayColor] setStroke];
+        [[self backgroundColor] setFill];
+        [[self textColor] setStroke];
         NSBezierPath* outline = [NSBezierPath bezierPathWithRect:textBg];
         [outline stroke];
         NSRectFill(textBg);
@@ -183,7 +241,7 @@
     
     // Draw satellite info.
     [formatted drawAtPoint:atPoint withAttributes: @{
-        NSForegroundColorAttributeName: [NSColor whiteColor],
+        NSForegroundColorAttributeName: [self textColor],
         NSFontAttributeName: satelliteFont,
         NSParagraphStyleAttributeName: style
     }];
@@ -194,7 +252,6 @@
     
     // Define the screen coordinate space.
     NSRect bounds = NSMakeRect(self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height);
-    NSColor* trackColor = [tle trackColor];
     
     // Create a bezier path for the space track.
     NSBezierPath *control1 = [NSBezierPath bezierPath];
@@ -222,8 +279,8 @@
     }
     
     // Fill the path.
-    [trackColor setStroke];
-    [trackColor setFill];
+    [[tle trackColor] setStroke];
+    [[tle trackColor] setFill];
     [control1 setLineWidth: 1];
     [control1 stroke];
 }
@@ -231,7 +288,8 @@
 - (void)drawRect:(NSRect)rect
 {
     
-    NSArray* tles = [self.tleFetcher get_tlesFromURL:self.customURL filteringNames:self.filterSatellites];
+//    NSArray* tles = [self.tleFetcher get_tlesFromURL:self.customURL filteringNames:self.filterSatellites];
+    NSArray* tles = [self.tleFetcher get_tlesFromURL:self.customURL filteringNames:self.filterSatellites randomizingColors:NO defaultColor:self.trackColor];
     
     // For each loaded TLE, setup a new track.
     for (TLE* tle in tles) {
@@ -241,7 +299,7 @@
     }
     
     // Fill background
-    [[NSColor blackColor] setFill];
+    [[self backgroundColor] setFill];
     NSRectFill(self.bounds);
     
     // Draw map
@@ -286,8 +344,6 @@
 
 - (NSWindow*)configureSheet
 {
-    ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:@"SatelliteSaver"];
-    
     if (self.configSheet == nil)
     {
         NSArray *topLevelObjects;
@@ -299,13 +355,7 @@
         }
     }
     
-    // Initialize elements to saved values.
-    [self.enableTracksField setState: [defaults boolForKey:@"enableTracks"] ? NSControlStateValueOn : NSControlStateValueOff ];
-    [self.enableLabelBackgroundsField setState: [defaults boolForKey:@"enableLabelBackgrounds"] ? NSControlStateValueOn : NSControlStateValueOff ];
-    [self.enableDetailedLabelsField setState: [defaults boolForKey:@"enableDetailedLabels"] ? NSControlStateValueOn : NSControlStateValueOff ];
-    [self.customURLField setStringValue: [defaults stringForKey:@"customURL"]];
-    [self.filterSatellitesField setStringValue: [defaults stringForKey:@"filterSatellites"]];
-    
+    [self loadDefaultsForEditing];
     return self.configSheet;
 }
 
@@ -320,22 +370,18 @@
 
 - (IBAction)configSheetOKAction:(id)sender {
 
-    ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:@"SatelliteSaver"];
-    
     // Load defaults into current view.
     self.enableDetailedLabels = [self.enableDetailedLabelsField state] == NSControlStateValueOn;
     self.enableLabelBackgrounds = [self.enableLabelBackgroundsField state] == NSControlStateValueOn;
     self.customURL = [self.customURLField stringValue];
     self.filterSatellites = [self.filterSatellitesField stringValue];
     self.enableTracks = [self.enableTracksField state] == NSControlStateValueOn;
-
-    // Reload defaults
-    [defaults setBool: self.enableDetailedLabels forKey:@"enableDetailedLabels"];
-    [defaults setBool: self.enableLabelBackgrounds forKey:@"enableLabelBackgrounds"];
-    [defaults setBool: self.enableTracks forKey:@"enableTracks"];
-    [defaults setValue: self.customURL forKey:@"customURL"];
-    [defaults setValue: self.filterSatellites forKey:@"filterSatellites"];
-    [defaults synchronize];
+    self.trackColor = [self.trackColorField color];
+    self.mapColor = [self.mapColorField color];
+    self.backgroundColor = [self.backgroundColorField color];
+    self.textColor = [self.textColorField color];
+    
+    [self saveDefaults];
     
     // Issue refresh of TLEs.
     [self.tleFetcher reload];

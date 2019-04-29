@@ -19,6 +19,7 @@
 		9B5AA07B227262BD009CCD55 /* satellite_saver_2View.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B5AA07A227262BD009CCD55 /* satellite_saver_2View.m */; };
 		9B848F5022726B5300512383 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B848F4F22726B5300512383 /* libresolv.tbd */; };
 		9B848F5122726B5F00512383 /* librust.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B5AA08822726B16009CCD55 /* librust.a */; };
+		9BB07D4C2275FDBF00AE1CB7 /* NSColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB07D4B2275FDBF00AE1CB7 /* NSColor+Hex.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		9B5AA08622726A74009CCD55 /* librust.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = librust.dylib; path = rust/target/release/librust.dylib; sourceTree = "<group>"; };
 		9B5AA08822726B16009CCD55 /* librust.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librust.a; path = rust/target/release/librust.a; sourceTree = "<group>"; };
 		9B848F4F22726B5300512383 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
+		9BB07D4B2275FDBF00AE1CB7 /* NSColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Hex.swift"; sourceTree = "<group>"; };
 		BC63E246742C6291F0BC09AC /* libPods-satellite-saver-2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-satellite-saver-2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -92,6 +94,7 @@
 				9B3A528F2273319100206513 /* TLEFetch.swift */,
 				9B4E7EBC22729DD2008F8640 /* satellite-saver-2-Bridging-Header.h */,
 				9B052E112273BC5400ECA3B9 /* ConfigureSheet.xib */,
+				9BB07D4B2275FDBF00AE1CB7 /* NSColor+Hex.swift */,
 			);
 			path = "satellite-saver-2";
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BB07D4C2275FDBF00AE1CB7 /* NSColor+Hex.swift in Sources */,
 				9B3A52902273319100206513 /* TLEFetch.swift in Sources */,
 				9B5AA07B227262BD009CCD55 /* satellite_saver_2View.m in Sources */,
 				9B4E7EBE22729DD3008F8640 /* GeoJSON.swift in Sources */,
