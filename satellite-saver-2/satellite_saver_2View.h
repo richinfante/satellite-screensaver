@@ -7,7 +7,6 @@
 //
 
 #import <ScreenSaver/ScreenSaver.h>
-#import "Satellite-Swift.h"
 
 @class GeoJSONCollection;
 @class GeoJSONFeature;
@@ -29,6 +28,7 @@
 @property (nonatomic) BOOL enableTracks;
 
 @property (strong) IBOutlet id configSheet;
+@property (strong) IBOutlet NSTextField* aboutLabel;
 
 @property (strong) IBOutlet NSColorWell* trackColorField;
 @property (strong) IBOutlet NSColorWell* mapColorField;

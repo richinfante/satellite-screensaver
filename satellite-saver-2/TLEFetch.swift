@@ -86,7 +86,9 @@ import Cocoa
         }
         
         self.is_fetching = true
-        let url = URL(string: fromURL)!
+        guard let url = URL(string: fromURL) else {
+            return tles
+        }
         
         let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
             guard let data = data else {

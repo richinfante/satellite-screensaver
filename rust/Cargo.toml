@@ -1,5 +1,5 @@
 [package]
-name = "rust"
+name = "rust_satellite_wrapper"
 version = "0.1.0"
 authors = ["Rich Infante <rich@richinfante.com>"]
 edition = "2018"

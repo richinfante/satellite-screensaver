@@ -10,6 +10,7 @@
 
 #import "satellite_saver_2View.h"
 #import "../rust/src/bridge.h"
+#import "Satellite-Swift.h"
 
 @implementation satellite_saver_2View
 @synthesize tleFetcher;
@@ -81,6 +82,12 @@
 }
 
 -(void) loadDefaultsForEditing {
+    NSString* appVersionString = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    NSString* appBuildString = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"CFBundleVersion"];
+    NSString* appGitString = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"BundleGitVersion"];
+    
+    [self.aboutLabel setStringValue: [NSString stringWithFormat:@"Version: %@\nBuild: %@\nTree: %@\n", appVersionString, appBuildString, appGitString]];
+    
     // Initialize elements to saved values.
     [self.enableTracksField setState: self.enableTracks ? NSControlStateValueOn : NSControlStateValueOff ];
     [self.enableLabelBackgroundsField setState: self.enableLabelBackgrounds ? NSControlStateValueOn : NSControlStateValueOff ];
@@ -360,6 +367,8 @@
 }
 
 - (IBAction)configSheetCancelAction:(id)sender {
+    [self loadDefaultsForEditing];
+
     if ([NSWindow respondsToSelector:@selector(endSheet:)])
     {
         [[self.configSheet sheetParent] endSheet:self.configSheet returnCode:NSModalResponseCancel];
