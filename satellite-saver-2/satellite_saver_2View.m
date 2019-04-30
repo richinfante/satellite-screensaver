@@ -85,8 +85,9 @@
     NSString* appVersionString = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     NSString* appBuildString = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"CFBundleVersion"];
     NSString* appGitString = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"BundleGitVersion"];
+    NSString* websiteLink = @"https://www.richinfante.com/2019/04/25/macos-satellite-screensaver-in-rust-swift-and-objc";
     
-    [self.aboutLabel setStringValue: [NSString stringWithFormat:@"Version: %@\nBuild: %@\nTree: %@\n", appVersionString, appBuildString, appGitString]];
+    [self.aboutLabel setStringValue: [NSString stringWithFormat:@"Version: %@\nBuild: %@\nTree: %@\n\nMore Info: %@", appVersionString, appBuildString, appGitString, websiteLink]];
     
     // Initialize elements to saved values.
     [self.enableTracksField setState: self.enableTracks ? NSControlStateValueOn : NSControlStateValueOff ];
