@@ -2,7 +2,8 @@
 This macOS Screensaver plots the position of satellites, by computing their position given orbital parameters. A mirror to access these is provided, but you may change it to use another source.
 
 ## Screenshot
-![screenshot](img/large-satellite.jpg)
+[![screenshot](img/large-satellite.jpg)](https://raw.githubusercontent.com/richinfante/satellite-screensaver/master/img/screenshot.png)
+_cropped view of the screensaver. [see full screen view](https://raw.githubusercontent.com/richinfante/satellite-screensaver/master/img/screenshot.png)_
 
 ## How it Works
 - TL;DR: Uses a combination of Rust, Swift, and Objective-C to display satellite locations. Prediction logic written in Rust, Swift/Objc used for macOS Screensaver portion.
