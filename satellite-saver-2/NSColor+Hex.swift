@@ -10,6 +10,7 @@ import Foundation
 import Cocoa
 
 extension NSColor {
+    /// Convert NSColor to hex string.
     @objc var toHexString: String {
         var r: CGFloat = 0
         var g: CGFloat = 0
@@ -28,6 +29,7 @@ extension NSColor {
 }
 
 extension NSColor {
+    /// Init from hex string.
     @objc convenience init(hex: String) {
         let hex = hex.lowercased()
         let scanner = Scanner(string: hex)

@@ -20,8 +20,11 @@
 		9B4E7EBE22729DD3008F8640 /* GeoJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4E7EBD22729DD3008F8640 /* GeoJSON.swift */; };
 		9B5AA079227262BD009CCD55 /* satellite_saver_2View.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B5AA078227262BD009CCD55 /* satellite_saver_2View.h */; };
 		9B5AA07B227262BD009CCD55 /* satellite_saver_2View.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B5AA07A227262BD009CCD55 /* satellite_saver_2View.m */; };
+		9B5D6B8F22790AFF005AC713 /* world.json in Resources */ = {isa = PBXBuildFile; fileRef = 9B4E7EBA22729DB8008F8640 /* world.json */; };
 		9B848F5022726B5300512383 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B848F4F22726B5300512383 /* libresolv.tbd */; };
 		9BB07D4C2275FDBF00AE1CB7 /* NSColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB07D4B2275FDBF00AE1CB7 /* NSColor+Hex.swift */; };
+		9BE0C2F522790D28009D7D1F /* TLE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0C2F422790D28009D7D1F /* TLE.swift */; };
+		9BE0C2F922790FD4009D7D1F /* Manifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0C2F822790FD4009D7D1F /* Manifest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -58,6 +61,8 @@
 		9B5AA0832272677A009CCD55 /* rust */ = {isa = PBXFileReference; lastKnownFileType = folder; path = rust; sourceTree = "<group>"; };
 		9B848F4F22726B5300512383 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		9BB07D4B2275FDBF00AE1CB7 /* NSColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Hex.swift"; sourceTree = "<group>"; };
+		9BE0C2F422790D28009D7D1F /* TLE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLE.swift; sourceTree = "<group>"; };
+		9BE0C2F822790FD4009D7D1F /* Manifest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manifest.swift; sourceTree = "<group>"; };
 		BC63E246742C6291F0BC09AC /* libPods-satellite-saver-2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-satellite-saver-2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -100,17 +105,19 @@
 		9B5AA077227262BD009CCD55 /* satellite-saver-2 */ = {
 			isa = PBXGroup;
 			children = (
+				9B4E7EBC22729DD2008F8640 /* satellite-saver-2-Bridging-Header.h */,
 				9B5AA078227262BD009CCD55 /* satellite_saver_2View.h */,
 				9B5AA07A227262BD009CCD55 /* satellite_saver_2View.m */,
-				9B3A528B227324B900206513 /* thumbnail.png */,
-				9B3A528C227324B900206513 /* thumbnail@2x.png */,
-				9B5AA07C227262BD009CCD55 /* Info.plist */,
-				9B4E7EBA22729DB8008F8640 /* world.json */,
 				9B4E7EBD22729DD3008F8640 /* GeoJSON.swift */,
 				9B3A528F2273319100206513 /* TLEFetch.swift */,
-				9B4E7EBC22729DD2008F8640 /* satellite-saver-2-Bridging-Header.h */,
-				9B052E112273BC5400ECA3B9 /* ConfigureSheet.xib */,
+				9BE0C2F422790D28009D7D1F /* TLE.swift */,
 				9BB07D4B2275FDBF00AE1CB7 /* NSColor+Hex.swift */,
+				9B052E112273BC5400ECA3B9 /* ConfigureSheet.xib */,
+				9B5AA07C227262BD009CCD55 /* Info.plist */,
+				9B4E7EBA22729DB8008F8640 /* world.json */,
+				9B3A528C227324B900206513 /* thumbnail@2x.png */,
+				9B3A528B227324B900206513 /* thumbnail.png */,
+				9BE0C2F822790FD4009D7D1F /* Manifest.swift */,
 			);
 			path = "satellite-saver-2";
 			sourceTree = "<group>";
@@ -155,12 +162,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9B5AA07F227262BD009CCD55 /* Build configuration list for PBXNativeTarget "satellite-saver-2" */;
 			buildPhases = (
-				9B104C6C2277B1540071BC75 /* ShellScript */,
-				9B3A52912273531900206513 /* ShellScript */,
+				9B104C6C2277B1540071BC75 /* Update Bundle Git Version */,
+				9B3A52912273531900206513 /* Cargo Build */,
 				08BCAA43DD6A515B9E727304 /* [CP] Check Pods Manifest.lock */,
 				9B5AA070227262BD009CCD55 /* Headers */,
 				9B5AA071227262BD009CCD55 /* Sources */,
-				9B104C7B2277D4130071BC75 /* ShellScript */,
+				9B104C7B2277D4130071BC75 /* Update dylib references */,
 				9B5AA072227262BD009CCD55 /* Frameworks */,
 				9B104C712277CF1C0071BC75 /* CopyFiles */,
 				9B5AA073227262BD009CCD55 /* Resources */,
@@ -211,6 +218,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B5D6B8F22790AFF005AC713 /* world.json in Resources */,
 				9B052E122273BC5400ECA3B9 /* ConfigureSheet.xib in Resources */,
 				9B3A528E227324B900206513 /* thumbnail@2x.png in Resources */,
 				9B3A528D227324B900206513 /* thumbnail.png in Resources */,
@@ -242,7 +250,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9B104C6C2277B1540071BC75 /* ShellScript */ = {
+		9B104C6C2277B1540071BC75 /* Update Bundle Git Version */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -251,6 +259,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Update Bundle Git Version";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -259,7 +268,7 @@
 			shellPath = /bin/sh;
 			shellScript = "GIT_VERSION=\"$(cd ${PROJECT_DIR} && git rev-parse HEAD)\"\n/usr/libexec/PlistBuddy -c \"Add :BundleGitVersion string $GIT_VERSION\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\" ||\n/usr/libexec/PlistBuddy -c \"Set :BundleGitVersion $GIT_VERSION\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n";
 		};
-		9B104C7B2277D4130071BC75 /* ShellScript */ = {
+		9B104C7B2277D4130071BC75 /* Update dylib references */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
 			files = (
@@ -268,6 +277,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Update dylib references";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -276,7 +286,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export DYLIB=librust_satellite_wrapper.dylib\ninstall_name_tool -change \"$PROJECT_DIR/rust/target/release/deps/$DYLIB\" \"@rpath/$DYLIB\" \"$TARGET_BUILD_DIR/$PRODUCT_NAME.saver/Contents/MacOS/$PRODUCT_NAME\"\n";
 		};
-		9B3A52912273531900206513 /* ShellScript */ = {
+		9B3A52912273531900206513 /* Cargo Build */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -285,6 +295,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Cargo Build";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -302,7 +313,9 @@
 			files = (
 				9BB07D4C2275FDBF00AE1CB7 /* NSColor+Hex.swift in Sources */,
 				9B3A52902273319100206513 /* TLEFetch.swift in Sources */,
+				9BE0C2F922790FD4009D7D1F /* Manifest.swift in Sources */,
 				9B5AA07B227262BD009CCD55 /* satellite_saver_2View.m in Sources */,
+				9BE0C2F522790D28009D7D1F /* TLE.swift in Sources */,
 				9B4E7EBE22729DD3008F8640 /* GeoJSON.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

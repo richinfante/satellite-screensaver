@@ -16,6 +16,7 @@ struct TrackPoint {
 
 #[repr(C)]
 struct Track {
+    pub error: bool,
     pub current: TrackPoint,
     pub track: [TrackPoint; 60]
 }
@@ -91,10 +92,19 @@ fn run_prediction(to: *const c_char) -> Track {
         }
 
         return Track {
+            error: false,
             current: current_pos,
             track: tracks
         }
     }
 
-    unimplemented!()
+    return Track {
+        error: true,
+        current: TrackPoint {
+            latitude: 0.0,
+            longitude: 0.0,
+            altitude: 0.0,
+        },
+        track: [TrackPoint { latitude: 0.0, longitude: 0.0, altitude: 0.0 }; 60]
+    }
 }

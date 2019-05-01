@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>BundleGitVersion</key>
-	<string>2749c4ca8cfa76584c5a4d3446cde756cbc209d3</string>
+	<string>4ec1a83f3e04545da96b5226a261b8508689ff1f</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -19,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>8</string>
+	<string>11</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2019 Rich Infante. All rights reserved.</string>
 	<key>NSPrincipalClass</key>

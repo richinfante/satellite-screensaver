@@ -13,13 +13,6 @@
 #import "Satellite-Swift.h"
 
 @implementation satellite_saver_2View
-@synthesize tleFetcher;
-@synthesize configSheet;
-@synthesize enableDetailedLabels, enableDetailedLabelsField;
-@synthesize enableLabelBackgrounds, enableLabelBackgroundsField;
-@synthesize enableTracks, enableTracksField;
-@synthesize filterSatellites, filterSatellitesField;
-@synthesize customURL, customURLField;
 
 - (instancetype)initWithFrame:(NSRect)frame isPreview:(BOOL)isPreview
 {
@@ -36,8 +29,10 @@
                                     @NO, @"enableLabelBackgrounds",
                                     @YES, @"enableDetailedLabels",
                                     @YES, @"enableTracks",
+                                    @YES, @"enableStatusMessages",
+                                    @NO, @"supressUpdateMessages",
                                     @"ISS (ZARYA)", @"filterSatellites",
-                                    @"https://celestrak.richinfante.com/stations.txt", @"customURL",
+                                    @"https://celestrak.richinfante.com/tdrss.txt", @"customURL",
                                     @"00ff00", @"trackColor",
                                     @"000000", @"backgroundColor",
                                     @"333333", @"mapColor",
@@ -45,34 +40,63 @@
                                     nil]];
         
         [self loadDefaults];
+        
+        // Set initial deploy config.
+        self.hasUpdates = NO;
+        self.deploymentManifest = nil;
+
+        // BEGIN VERSION CHECKING -- delete if not needed.
+        NSURL* manifestURL = [[NSURL alloc] initWithString:@"https://public.richinfante.com/manifest/satellite-screensaver/manifest.json"];
+
+        // Check for updates
+        [DeploymentManifest initFromUrlWithUrl:manifestURL completion:^(DeploymentManifest* manifest){
+            self.deploymentManifest = manifest;
+            
+            // If update is needed, set info.
+            if ([manifest needsUpdate]) {
+                self.updateURL = [manifest updateUrl];
+                self.hasUpdates = YES;
+                [self.updateAvailableButton setHidden:NO];
+            } else {
+                self.hasUpdates = NO;
+                [self.updateAvailableButton setHidden:YES];
+            }
+        }];
+        // END VERSION CHECKING
     }
     return self;
 }
 
 
+/// Restore default settings
 - (IBAction)restoreDefaults:(id)sender {
     ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:@"SatelliteSaver"];
     [defaults setBool:NO forKey:@"enableLabelBackgrounds"];
     [defaults setBool:YES forKey:@"enableDetailedLabels"];
+    [defaults setBool:YES forKey:@"enableStatusMessages"];
     [defaults setBool:YES  forKey: @"enableTracks"];
+    [defaults setBool:NO forKey:@"supressUpdateMessages"];
     [defaults setValue:@"ISS (ZARYA)" forKey:@"filterSatellites"];
     [defaults setValue:@"https://celestrak.richinfante.com/stations.txt" forKey:@"customURL"];
     [defaults setValue:@"00ff00" forKey:@"trackColor"];
     [defaults setValue:@"000000" forKey:@"backgroundColor"];
     [defaults setValue:@"333333" forKey:@"mapColor"];
     [defaults setValue:@"ffffff" forKey:@"textColor"];
+
     [defaults synchronize];
     
     [self loadDefaults];
     [self loadDefaultsForEditing];
 }
 
+/// Load defaults from ScreensaverDefaults
 -(void) loadDefaults {
-    // Load defaults
     ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:@"SatelliteSaver"];
     self.enableLabelBackgrounds = [defaults boolForKey:@"enableLabelBackgrounds"];
     self.enableDetailedLabels = [defaults boolForKey:@"enableDetailedLabels"];
     self.enableTracks = [defaults boolForKey:@"enableTracks"];
+    self.enableStatusMessages = [defaults boolForKey:@"enableStatusMessages"];
+    self.supressUpdateMessages = [defaults boolForKey:@"supressUpdateMessages"];
     self.customURL = [defaults stringForKey:@"customURL"];
     self.filterSatellites = [defaults stringForKey:@"filterSatellites"];
     self.trackColor = [[NSColor alloc] initWithHex: [defaults stringForKey:@"trackColor"]];
@@ -81,18 +105,31 @@
     self.textColor = [[NSColor alloc] initWithHex: [defaults stringForKey:@"textColor"]];
 }
 
+/// Load information into config panel controls.
 -(void) loadDefaultsForEditing {
     NSString* appVersionString = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     NSString* appBuildString = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"CFBundleVersion"];
     NSString* appGitString = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"BundleGitVersion"];
     NSString* websiteLink = @"https://www.richinfante.com/2019/04/25/macos-satellite-screensaver-in-rust-swift-and-objc";
+    NSString* latestBuild = @"Unknown";
+    NSString* updateURL = @"Unknown";
     
-    [self.aboutLabel setStringValue: [NSString stringWithFormat:@"Version: %@\nBuild: %@\nTree: %@\n\nMore Info: %@", appVersionString, appBuildString, appGitString, websiteLink]];
+    // Try to fetch deployment info
+    if (self.deploymentManifest) {
+        latestBuild = [[self deploymentManifest] latestBuildString];
+        updateURL = [[self deploymentManifest] updateUrl];
+    }
+    
+    // Set about label
+    [self.aboutLabel setStringValue: [NSString stringWithFormat:@"Version: %@\nBuild: %@\nTree: %@\n\nLatest Build: %@\nUpdate URL: %@\n\nMore Info: %@", appVersionString, appBuildString, appGitString, latestBuild, updateURL, websiteLink]];
     
     // Initialize elements to saved values.
+    [self.updateAvailableButton setHidden:!self.hasUpdates];
     [self.enableTracksField setState: self.enableTracks ? NSControlStateValueOn : NSControlStateValueOff ];
     [self.enableLabelBackgroundsField setState: self.enableLabelBackgrounds ? NSControlStateValueOn : NSControlStateValueOff ];
     [self.enableDetailedLabelsField setState: self.enableDetailedLabels ? NSControlStateValueOn : NSControlStateValueOff ];
+    [self.enableStatusMessagesField setState: self.enableStatusMessages ? NSControlStateValueOn : NSControlStateValueOff ];
+    [self.supressUpdateMessagesField setState: self.supressUpdateMessages ? NSControlStateValueOn : NSControlStateValueOff ];
     [self.customURLField setStringValue: self.customURL];
     [self.filterSatellitesField setStringValue: self.filterSatellites];
     [self.trackColorField setColor: self.trackColor];
@@ -101,12 +138,14 @@
     [self.textColorField setColor: self.textColor];
 }
 
+/// Save currently loaded defaults.
 -(void) saveDefaults {
-    // Reload defaults
     ScreenSaverDefaults *defaults = [ScreenSaverDefaults defaultsForModuleWithName:@"SatelliteSaver"];
     [defaults setBool: self.enableDetailedLabels forKey:@"enableDetailedLabels"];
     [defaults setBool: self.enableLabelBackgrounds forKey:@"enableLabelBackgrounds"];
     [defaults setBool: self.enableTracks forKey:@"enableTracks"];
+    [defaults setBool: self.enableStatusMessages forKey:@"enableStatusMessages"];
+    [defaults setBool: self.supressUpdateMessages forKey:@"supressUpdateMessages"];
     [defaults setValue: self.customURL forKey:@"customURL"];
     [defaults setValue: self.filterSatellites forKey:@"filterSatellites"];
     [defaults setValue: [self.trackColor toHexString] forKey:@"trackColor"];
@@ -173,6 +212,11 @@
 }
 
 -(void)drawMarker:(TLE*) tle {
+    // Error processing? skip.
+    if ([tle error]) {
+        return;
+    }
+
     NSRect gpscoord = NSMakeRect(-180.0, -90.0, 360.0, 180.0);
     
     // Define the screen coordinate space.
@@ -196,6 +240,11 @@
 }
 
 -(void)drawMarkerText:(TLE*) tle {
+    // Error processing? skip.
+    if ([tle error]) {
+        return;
+    }
+
     NSRect gpscoord = NSMakeRect(-180.0, -90.0, 360.0, 180.0);
     
     // Define the screen coordinate space.
@@ -263,6 +312,12 @@
     
     // Create a bezier path for the space track.
     NSBezierPath *control1 = [NSBezierPath bezierPath];
+    
+    // If no track available (due to error), or error with predictions, skip.
+    if (![tle has_track] || [tle error]) {
+        return;
+    }
+    
     struct Track t = [tle get_track];
     for (int i = 0; i < 59; i++) {
         
@@ -295,15 +350,28 @@
 
 - (void)drawRect:(NSRect)rect
 {
-    
-//    NSArray* tles = [self.tleFetcher get_tlesFromURL:self.customURL filteringNames:self.filterSatellites];
     NSArray* tles = [self.tleFetcher get_tlesFromURL:self.customURL filteringNames:self.filterSatellites randomizingColors:NO defaultColor:self.trackColor];
     
     // For each loaded TLE, setup a new track.
     for (TLE* tle in tles) {
         const char* _Nullable  tle_str_lines = [tle.lines cStringUsingEncoding:NSASCIIStringEncoding];
-        struct Track t = run_prediction((char*) tle_str_lines);
-        [tle set_trackWithTrack:t];
+        @try {
+            // *shouldn't* crash, but there's some situations where this may cause issues!
+            struct Track t = run_prediction((char*) tle_str_lines);
+
+            // Detect internal errors.
+            if (t.error) {
+                tle.error = YES;
+                continue;
+            }
+
+            // If all went well, copy the track into the tle object.
+            [tle set_trackWithTrack:t];
+        }
+        @catch ( NSException *e ) {
+            tle.error = YES;
+            NSLog(@"Error Processing: %@: %@", [tle name], [e debugDescription]);
+        }
     }
     
     // Fill background
@@ -312,6 +380,45 @@
     
     // Draw map
     [self drawMap];
+
+    
+    // Determine size + position for status messages.
+    NSPoint infoPoint = NSMakePoint(100, 100);
+    CGFloat infoSize = 12;
+    if ([self isPreview]) {
+        infoPoint = NSMakePoint(10, 10);
+        infoSize = 8;
+    }
+    
+    /// Show update available item
+    if ([self hasUpdates] && ![self supressUpdateMessages]) {
+        NSString* updatingString = @"Update Available! Visit Screensaver Config to Update.";
+        NSFontManager *fontManager = [NSFontManager sharedFontManager];
+        NSFont *boldFont = [fontManager fontWithFamily:@"Menlo"
+                                          traits:NSBoldFontMask
+                                          weight:0
+                                          size:infoSize];
+        [updatingString drawAtPoint:infoPoint withAttributes:@{
+           NSForegroundColorAttributeName: [self textColor],
+           NSFontAttributeName: boldFont,
+       }];
+    } else if ([[self tleFetcher] is_fetching] && [self enableStatusMessages]) {
+        // Show status information for orbital parameters.
+        NSFont* satelliteFont = [NSFont fontWithName:@"Menlo" size:infoSize];
+        NSString* updatingString = @"Fetching Orbital Parameters...";
+        [updatingString drawAtPoint:infoPoint withAttributes:@{
+           NSForegroundColorAttributeName: [self textColor],
+           NSFontAttributeName: satelliteFont,
+       }];
+    } else if ([[self tleFetcher] fetch_error] && [self enableStatusMessages]) {
+        // Show status information for orbital parameters.
+        NSFont* satelliteFont = [NSFont fontWithName:@"Menlo" size:infoSize];
+        NSString* updatingString = @"[!] Error Fetching Orbital Parameters.";
+        [updatingString drawAtPoint:infoPoint withAttributes:@{
+           NSForegroundColorAttributeName: [self textColor],
+           NSFontAttributeName: satelliteFont,
+       }];
+    }
     
     if (self.enableTracks) {
         // Draw track
@@ -383,9 +490,11 @@
     // Load defaults into current view.
     self.enableDetailedLabels = [self.enableDetailedLabelsField state] == NSControlStateValueOn;
     self.enableLabelBackgrounds = [self.enableLabelBackgroundsField state] == NSControlStateValueOn;
+    self.enableTracks = [self.enableTracksField state] == NSControlStateValueOn;
+    self.enableStatusMessages = [self.enableStatusMessagesField state] == NSControlStateValueOn;
+    self.supressUpdateMessages = [self.supressUpdateMessagesField state] == NSControlStateValueOn;
     self.customURL = [self.customURLField stringValue];
     self.filterSatellites = [self.filterSatellitesField stringValue];
-    self.enableTracks = [self.enableTracksField state] == NSControlStateValueOn;
     self.trackColor = [self.trackColorField color];
     self.mapColor = [self.mapColorField color];
     self.backgroundColor = [self.backgroundColorField color];
@@ -400,4 +509,9 @@
     [self configSheetCancelAction:sender];
 }
 
+- (IBAction)configSheetOpenUpdateURL:(id)sender {
+    if (self.updateURL != nil) {
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:self.updateURL]];
+    }
+}
 @end
