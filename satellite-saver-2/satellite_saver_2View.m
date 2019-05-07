@@ -19,6 +19,9 @@
     self = [super initWithFrame:frame isPreview:isPreview];
     if (self) {
         self.tleFetcher = [[TLEFetcher alloc] init];
+        self.groundStationProvider = [[GroundStationProvider alloc] init];
+        self.groundStationProvider.delegate = self;
+        
         [self setAnimationTimeInterval:1.0];
         
         ScreenSaverDefaults *defaults;
@@ -31,8 +34,12 @@
                                     @YES, @"enableTracks",
                                     @YES, @"enableStatusMessages",
                                     @NO, @"supressUpdateMessages",
+                                    @YES, @"enableStaticGroundStations",
+                                    @NO, @"enableDynamicGroundStations",
                                     @"ISS (ZARYA)", @"filterSatellites",
                                     @"https://celestrak.richinfante.com/tdrss.txt", @"customURL",
+                                    @"[]", @"staticGroundStationJSON",
+                                    @"", @"dynamicGroundStationURL",
                                     @"00ff00", @"trackColor",
                                     @"000000", @"backgroundColor",
                                     @"333333", @"mapColor",
@@ -76,6 +83,10 @@
     [defaults setBool:YES forKey:@"enableStatusMessages"];
     [defaults setBool:YES  forKey: @"enableTracks"];
     [defaults setBool:NO forKey:@"supressUpdateMessages"];
+    [defaults setBool:YES forKey:@"enableStaticGroundStations"];
+    [defaults setBool:NO forKey:@"enableDynamicGroundStations"];
+    [defaults setValue:@"[]" forKey:@"staticGroundStationJSON"];
+    [defaults setValue:@"" forKey:@"dynamicGroundStationURL"];
     [defaults setValue:@"ISS (ZARYA)" forKey:@"filterSatellites"];
     [defaults setValue:@"https://celestrak.richinfante.com/stations.txt" forKey:@"customURL"];
     [defaults setValue:@"00ff00" forKey:@"trackColor"];
@@ -97,6 +108,10 @@
     self.enableTracks = [defaults boolForKey:@"enableTracks"];
     self.enableStatusMessages = [defaults boolForKey:@"enableStatusMessages"];
     self.supressUpdateMessages = [defaults boolForKey:@"supressUpdateMessages"];
+    self.enableDynamicGroundStations = [defaults boolForKey:@"enableDynamicGroundStations"];
+    self.enableStaticGroundStations = [defaults boolForKey:@"enableStaticGroundStations"];
+    self.staticGroundStationJSON = [defaults stringForKey:@"staticGroundStationJSON"];
+    self.dynamicGroundStationURL = [defaults stringForKey:@"dynamicGroundStationURL"];
     self.customURL = [defaults stringForKey:@"customURL"];
     self.filterSatellites = [defaults stringForKey:@"filterSatellites"];
     self.trackColor = [[NSColor alloc] initWithHex: [defaults stringForKey:@"trackColor"]];
@@ -130,6 +145,10 @@
     [self.enableDetailedLabelsField setState: self.enableDetailedLabels ? NSControlStateValueOn : NSControlStateValueOff ];
     [self.enableStatusMessagesField setState: self.enableStatusMessages ? NSControlStateValueOn : NSControlStateValueOff ];
     [self.supressUpdateMessagesField setState: self.supressUpdateMessages ? NSControlStateValueOn : NSControlStateValueOff ];
+    [self.enableStaticGroundStationsField setState: self.enableStaticGroundStations ? NSControlStateValueOn : NSControlStateValueOff ];
+    [self.enableDynamicGroundStationsField setState: self.enableDynamicGroundStations ? NSControlStateValueOn : NSControlStateValueOff ];
+    [self.staticGroundStationJSONField setString: self.staticGroundStationJSON];
+    [self.dynamicGroundStationURLField setStringValue: self.dynamicGroundStationURL];
     [self.customURLField setStringValue: self.customURL];
     [self.filterSatellitesField setStringValue: self.filterSatellites];
     [self.trackColorField setColor: self.trackColor];
@@ -146,6 +165,10 @@
     [defaults setBool: self.enableTracks forKey:@"enableTracks"];
     [defaults setBool: self.enableStatusMessages forKey:@"enableStatusMessages"];
     [defaults setBool: self.supressUpdateMessages forKey:@"supressUpdateMessages"];
+    [defaults setBool: self.enableStaticGroundStations forKey:@"enableStaticGroundStations"];
+    [defaults setBool: self.enableDynamicGroundStations forKey:@"enableDynamicGroundStations"];
+    [defaults setValue: self.staticGroundStationJSON forKey:@"staticGroundStationJSON"];
+    [defaults setValue: self.dynamicGroundStationURL forKey:@"dynamicGroundStationURL"];
     [defaults setValue: self.customURL forKey:@"customURL"];
     [defaults setValue: self.filterSatellites forKey:@"filterSatellites"];
     [defaults setValue: [self.trackColor toHexString] forKey:@"trackColor"];
@@ -211,69 +234,41 @@
     
 }
 
--(void)drawMarker:(TLE*) tle {
-    // Error processing? skip.
-    if ([tle error]) {
-        return;
-    }
-
+-(void)drawMarkerAtGPS:(NSPoint*) coords color:(NSColor*) color {
     NSRect gpscoord = NSMakeRect(-180.0, -90.0, 360.0, 180.0);
-    
-    // Define the screen coordinate space.
     NSRect bounds = NSMakeRect(self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height);
-    
-    struct TrackPoint current = [tle get_current_point];
-    // Convert current pos.
-    NSPoint current_pos = NSMakePoint(current.longitude, current.latitude);
-    NSPoint current_pos_screen = [self convertCoordinateSpace:&current_pos fromSpace:&gpscoord toSpace: &bounds];
-    
+
     // Fill the marker rectangle.
     CGFloat boxRad = 5;
     if ([self isPreview]) {
         boxRad = 2.5;
     }
+    [color setFill];
     
-    [[tle trackColor] setFill];
-    
+    NSPoint current_pos_screen = [self convertCoordinateSpace:coords fromSpace:&gpscoord toSpace: &bounds];
     NSRect marker_rect = NSMakeRect(current_pos_screen.x - boxRad, current_pos_screen.y - boxRad, boxRad * 2, boxRad * 2);
     NSRectFill(marker_rect);
 }
 
--(void)drawMarkerText:(TLE*) tle {
-    // Error processing? skip.
-    if ([tle error]) {
-        return;
-    }
-
+-(void) drawMarkerText:(NSString*) text atGPS:(NSPoint*)coords {
     NSRect gpscoord = NSMakeRect(-180.0, -90.0, 360.0, 180.0);
     
     // Define the screen coordinate space.
     NSRect bounds = NSMakeRect(self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height);
+    
+    NSPoint current_pos_screen = [self convertCoordinateSpace:coords fromSpace:&gpscoord toSpace: &bounds];
+    
     NSFont* satelliteFont = [NSFont fontWithName:@"Menlo" size:12.0];
     
-    struct TrackPoint current = [tle get_current_point];
-    // Convert current pos.
-    NSPoint current_pos = NSMakePoint(current.longitude, current.latitude);
-    NSPoint current_pos_screen = [self convertCoordinateSpace:&current_pos fromSpace:&gpscoord toSpace: &bounds];
+    NSSize size = [text sizeWithAttributes: @{
+        NSFontAttributeName: satelliteFont
+    }];
     
     // Fill the marker rectangle.
     CGFloat boxRad = 5;
     if ([self isPreview]) {
         boxRad = 2.5;
     }
-    
-    // Create a string for the current position info.
-    NSString* formatted;
-    
-    if (!self.enableDetailedLabels) {
-        formatted = [tle.name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    } else {
-        formatted = [NSString stringWithFormat: @"%@\nlat: %f°\nlng: %f°\nalt: %f km", tle.name, current.latitude, current.longitude, current.altitude];
-    }
-    
-    NSSize size = [formatted sizeWithAttributes: @{
-         NSFontAttributeName: satelliteFont
-    }];
     
     
     // If it's too far to the right, switch to left aligned text.
@@ -297,11 +292,47 @@
     }
     
     // Draw satellite info.
-    [formatted drawAtPoint:atPoint withAttributes: @{
+    [text drawAtPoint:atPoint withAttributes: @{
         NSForegroundColorAttributeName: [self textColor],
         NSFontAttributeName: satelliteFont,
         NSParagraphStyleAttributeName: style
     }];
+}
+
+-(void)drawMarker:(TLE*) tle {
+    // Error processing? skip.
+    if ([tle error]) {
+        return;
+    }
+
+    struct TrackPoint current = [tle get_current_point];
+    // Convert current pos.
+    NSPoint current_pos = NSMakePoint(current.longitude, current.latitude);
+    
+    [self drawMarkerAtGPS: &current_pos color: [tle trackColor]];
+}
+
+-(void)drawMarkerText:(TLE*) tle {
+    // Error processing? skip.
+    if ([tle error]) {
+        return;
+    }
+
+    struct TrackPoint current = [tle get_current_point];
+    // Convert current pos.
+    NSPoint current_pos = NSMakePoint(current.longitude, current.latitude);
+    
+    
+    // Create a string for the current position info.
+    NSString* formatted;
+    
+    if (!self.enableDetailedLabels) {
+        formatted = [tle.name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    } else {
+        formatted = [NSString stringWithFormat: @"%@\nlat: %f°\nlng: %f°\nalt: %f km", tle.name, current.latitude, current.longitude, current.altitude];
+    }
+    
+    [self drawMarkerText:formatted atGPS:&current_pos];
 }
 
 -(void)drawTrack:(TLE*) tle {
@@ -328,16 +359,63 @@
         NSPoint p1 = [self convertCoordinateSpace:&p1_init fromSpace:&gpscoord toSpace: &bounds];
         [control1 moveToPoint:p0];
         
-        // Find distance
-        float dist = sqrt(pow(p0.x - p1.x, 2.0) + pow(p0.y - p1.y, 2.0));
+//        [control1 lineToPoint:p1];
+//        p0 = 180
+//        p1 = -180
+        // If normal absvalue adjustment is less than width-adjusted,
+        // HACK
         
-        // If they're very far away, it's likely because it wraps the screen.
-        // To prevent the bezier curve making a line across, move instead of line.
-        if (dist < 180) {
+        float xdist = fabs(p0.x - p1.x);
+        float nxdist = fabs(xdist - 360);
+        
+
+        if (xdist < nxdist) {
             [control1 lineToPoint:p1];
         } else {
             [control1 moveToPoint:p1];
+//            NSPoint p1_mida = NSMakePoint(p1.x, p1.y);
+//            if (p1_mida.x < p0.x) {
+//                p1_mida.x += self.bounds.size.width;
+//            } else {
+//                p1_mida.x -= self.bounds.size.width;
+//            }
+//
+//            tle.name = [NSString stringWithFormat:@"%@\n mv: x:%f nx: %f", tle.name, xdist, nxdist];
+//            [control1 lineToPoint:p1_mida];
+//
+//
+//            if (i < 58) {
+//                NSPoint p0_midb = NSMakePoint(p0.x, p0.y);
+//
+//                if (p0_midb.x < p1.x) {
+//                    p0_midb.x -= self.bounds.size.width;
+//                } else {
+//                    p0_midb.x += self.bounds.size.width;
+//                }
+//
+//
+//                [control1 moveToPoint:p0_midb];
+//                [control1 lineToPoint:p1];
+//            }
         }
+        
+//        // If they're very far away, it's likely because it wraps the screen.
+//        // To prevent the bezier curve making a line across, move instead of line.
+//        if (fabs(p0.x - p1.x) < fabs(p0.x ) {
+//            [control1 lineToPoint:p1];
+//        } else {
+//            NSPoint adjusted_point = NSMakePoint(p1_init.x, p1_init.y);
+//            if (p0_init.x < 0 && p1_init.x > 0) {
+//                adjusted_point.x += 360;
+//            } else {
+//                adjusted_point.x -= 360;
+//            }
+//
+//            NSPoint p1m = [self convertCoordinateSpace:&adjusted_point fromSpace:&gpscoord toSpace: &bounds];
+//
+////             [control1 moveToPoint:p1];
+//            [control1 lineToPoint:p1m];
+//        }
         
     }
     
@@ -420,6 +498,26 @@
        }];
     }
     
+    NSArray* stations = [self.groundStationProvider getStations];
+    
+    // Draw ground stations if we have any.
+    if (stations) {
+        for (GroundStation* station in [stations reverseObjectEnumerator]) {
+            NSPoint coords = [station getCoords];
+            NSColor* color = [station getColorWithDefaultColor:self.trackColor];
+            [self drawMarkerAtGPS:&coords color: color];
+        }
+        
+        if (![self isPreview]) {
+            for (GroundStation* station in [stations reverseObjectEnumerator]) {
+                if (station.title) {
+                    NSPoint coords = [station getCoords];
+                    [self drawMarkerText:station.title atGPS:&coords];
+                }
+            }
+        }
+    }
+    
     if (self.enableTracks) {
         // Draw track
         for (TLE* tle in [tles reverseObjectEnumerator]) {
@@ -471,6 +569,7 @@
     }
     
     [self loadDefaultsForEditing];
+    [self didToggleGroundStationRadioButtons:nil];
     return self.configSheet;
 }
 
@@ -493,6 +592,10 @@
     self.enableTracks = [self.enableTracksField state] == NSControlStateValueOn;
     self.enableStatusMessages = [self.enableStatusMessagesField state] == NSControlStateValueOn;
     self.supressUpdateMessages = [self.supressUpdateMessagesField state] == NSControlStateValueOn;
+    self.enableStaticGroundStations = [self.enableStaticGroundStationsField state] == NSControlStateValueOn;
+    self.enableDynamicGroundStations = [self.enableDynamicGroundStationsField state] == NSControlStateValueOn;
+    self.staticGroundStationJSON = [self.staticGroundStationJSONField string];
+    self.dynamicGroundStationURL = [self.dynamicGroundStationURLField stringValue];
     self.customURL = [self.customURLField stringValue];
     self.filterSatellites = [self.filterSatellitesField stringValue];
     self.trackColor = [self.trackColorField color];
@@ -505,6 +608,8 @@
     // Issue refresh of TLEs.
     [self.tleFetcher reload];
     
+    [self.groundStationProvider purge];
+    
     // Cancel the sheet.
     [self configSheetCancelAction:sender];
 }
@@ -513,5 +618,35 @@
     if (self.updateURL != nil) {
         [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:self.updateURL]];
     }
+}
+
+- (IBAction)didToggleGroundStationRadioButtons:(id)sender {
+    self.enableStaticGroundStations = [self.enableStaticGroundStationsField state] == NSControlStateValueOn;
+    self.enableDynamicGroundStations = [self.enableDynamicGroundStationsField state] == NSControlStateValueOn;
+    
+    if (self.enableDynamicGroundStations) {
+        [[self staticGroundStationJSONField] setEditable:NO];
+        [[self dynamicGroundStationURLField] setEditable:YES];
+    } else {
+        [[self staticGroundStationJSONField] setEditable:YES];
+        [[self dynamicGroundStationURLField] setEditable:NO];
+    }
+}
+- (NSURL * _Nullable)getDynamicGroundStationsURL {
+    return [[NSURL alloc] initWithString:self.dynamicGroundStationURL];
+}
+
+- (enum GroundStationMode)getGroundStationMode {
+    if ([self enableStaticGroundStations]) {
+        return GroundStationModeStaticJSON;
+    } else if ([self enableDynamicGroundStations]) {
+        return GroundStationModeStaticJSON;
+    } else {
+        return GroundStationModeDisabled;
+    }
+}
+
+- (NSData * _Nullable)getStaticGroundStations {
+    return [self.staticGroundStationJSON dataUsingEncoding:NSUTF8StringEncoding];
 }
 @end

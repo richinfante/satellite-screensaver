@@ -14,6 +14,7 @@
 		9B104C772277D0E00071BC75 /* librust_satellite_wrapper.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9B104C732277CF730071BC75 /* librust_satellite_wrapper.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		9B104C7D2277D68C0071BC75 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B104C7C2277D68C0071BC75 /* Foundation.framework */; };
 		9B104C7E2277DA010071BC75 /* librust_satellite_wrapper.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B104C732277CF730071BC75 /* librust_satellite_wrapper.dylib */; };
+		9B220BF8227B161F001FE635 /* GroundStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B220BF7227B161F001FE635 /* GroundStation.swift */; };
 		9B3A528D227324B900206513 /* thumbnail.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B3A528B227324B900206513 /* thumbnail.png */; };
 		9B3A528E227324B900206513 /* thumbnail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B3A528C227324B900206513 /* thumbnail@2x.png */; };
 		9B3A52902273319100206513 /* TLEFetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3A528F2273319100206513 /* TLEFetch.swift */; };
@@ -48,6 +49,7 @@
 		9B052E172273E22A00ECA3B9 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		9B104C732277CF730071BC75 /* librust_satellite_wrapper.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = librust_satellite_wrapper.dylib; path = rust/target/release/librust_satellite_wrapper.dylib; sourceTree = "<group>"; };
 		9B104C7C2277D68C0071BC75 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		9B220BF7227B161F001FE635 /* GroundStation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundStation.swift; sourceTree = "<group>"; };
 		9B3A528B227324B900206513 /* thumbnail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thumbnail.png; sourceTree = "<group>"; };
 		9B3A528C227324B900206513 /* thumbnail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumbnail@2x.png"; sourceTree = "<group>"; };
 		9B3A528F2273319100206513 /* TLEFetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLEFetch.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				9B4E7EBD22729DD3008F8640 /* GeoJSON.swift */,
 				9B3A528F2273319100206513 /* TLEFetch.swift */,
 				9BE0C2F422790D28009D7D1F /* TLE.swift */,
+				9B220BF7227B161F001FE635 /* GroundStation.swift */,
 				9BB07D4B2275FDBF00AE1CB7 /* NSColor+Hex.swift */,
 				9B052E112273BC5400ECA3B9 /* ConfigureSheet.xib */,
 				9B5AA07C227262BD009CCD55 /* Info.plist */,
@@ -313,6 +316,7 @@
 			files = (
 				9BB07D4C2275FDBF00AE1CB7 /* NSColor+Hex.swift in Sources */,
 				9B3A52902273319100206513 /* TLEFetch.swift in Sources */,
+				9B220BF8227B161F001FE635 /* GroundStation.swift in Sources */,
 				9BE0C2F922790FD4009D7D1F /* Manifest.swift in Sources */,
 				9B5AA07B227262BD009CCD55 /* satellite_saver_2View.m in Sources */,
 				9BE0C2F522790D28009D7D1F /* TLE.swift in Sources */,

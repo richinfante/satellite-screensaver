@@ -7,6 +7,7 @@
 //
 
 #import <ScreenSaver/ScreenSaver.h>
+//#import "Satellite-Swift.h"
 
 @class GeoJSONCollection;
 @class GeoJSONFeature;
@@ -14,11 +15,14 @@
 @class GeoJSONFeature;
 @class TLEFetcher;
 @class DeploymentManifest;
+@class GroundStationProvider;
+@protocol GroundStationProviderDelegate;
 
-@interface satellite_saver_2View : ScreenSaverView
+@interface satellite_saver_2View : ScreenSaverView <GroundStationProviderDelegate>
 
 // Store TLEFetcher Instance
 @property (retain, nonatomic) TLEFetcher* tleFetcher;
+@property (retain, nonatomic) GroundStationProvider* groundStationProvider;
 
 /// Settings
 @property (retain, nonatomic) NSString* customURL;
@@ -32,6 +36,10 @@
 @property (nonatomic) BOOL enableTracks;
 @property (nonatomic) BOOL enableStatusMessages;
 @property (nonatomic) BOOL supressUpdateMessages;
+@property (nonatomic) BOOL enableDynamicGroundStations;
+@property (nonatomic) BOOL enableStaticGroundStations;
+@property (retain, nonatomic) NSString* staticGroundStationJSON;
+@property (retain, nonatomic) NSString* dynamicGroundStationURL;
 
 // Config seet outlets
 @property (strong) IBOutlet id configSheet;
@@ -48,6 +56,12 @@
 @property (strong) IBOutlet NSTextField* customURLField;
 @property (strong) IBOutlet NSTextField* filterSatellitesField;
 
+// Ground Station Config
+@property (strong) IBOutlet NSTextField* dynamicGroundStationURLField;
+@property (strong) IBOutlet NSTextView* staticGroundStationJSONField;
+@property (strong) IBOutlet NSButton* enableDynamicGroundStationsField;
+@property (strong) IBOutlet NSButton* enableStaticGroundStationsField;
+
 // Update checking
 @property (strong) IBOutlet NSButton* updateAvailableButton;
 @property (nonatomic) BOOL hasUpdates;
@@ -58,4 +72,5 @@
 - (IBAction)configSheetCancelAction:(id)sender;
 - (IBAction)configSheetOKAction:(id)sender;
 - (IBAction)configSheetOpenUpdateURL:(id)sender;
+- (IBAction)didToggleGroundStationRadioButtons:(id)sender;
 @end
