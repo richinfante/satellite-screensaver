@@ -13,7 +13,10 @@ import Foundation
     var longitude: Double
     var title: String?
     var color: String?
+    var pointSize: Float?
+    var fontSize: Float?
     
+
     /// Initialize a ground station object from JSON data
     static func fromJSON(data: Data) -> Array<GroundStation>? {
         // Try decoding it.
@@ -22,6 +25,23 @@ import Foundation
         }
         
         return res
+    }
+
+    func getFontSize(defaultSize: Float) -> Float {
+        if let size = self.fontSize {
+            return size
+        }
+        
+        return defaultSize
+    }
+    
+    
+    func getPointSize(defaultSize: Float) -> Float {
+        if let size = self.pointSize {
+            return size
+        }
+        
+        return defaultSize
     }
     
     /// Get the color for display, given the default.
@@ -83,11 +103,13 @@ import Foundation
             
             return result
         case .dynamicURL:
+            
             // Get url to fetch stations from
             guard let url = delegate.getDynamicGroundStationsURL() else { return [] }
             
             // Launch a task.
             let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+                
                 // No data? return.
                 guard let data = data else { return }
                 

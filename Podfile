@@ -6,5 +6,7 @@ target 'satellite-saver-2' do
   # use_frameworks!
 
   # Pods for satellite-saver-2
+#  use_frameworks!
+#  pod 'CocoaLumberjack/Swift'
 
 end

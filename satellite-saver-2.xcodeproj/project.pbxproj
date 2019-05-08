@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01FAA43E0D29B391F62DD265 /* libPods-satellite-saver-2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD941FF1233E637463505AD1 /* libPods-satellite-saver-2.a */; };
 		9B052E122273BC5400ECA3B9 /* ConfigureSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B052E112273BC5400ECA3B9 /* ConfigureSheet.xib */; };
 		9B052E162273D9A300ECA3B9 /* ScreenSaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B052E152273D9A300ECA3B9 /* ScreenSaver.framework */; };
 		9B052E182273E22A00ECA3B9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B052E172273E22A00ECA3B9 /* Cocoa.framework */; };
-		9B104C762277D09F0071BC75 /* libPods-satellite-saver-2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC63E246742C6291F0BC09AC /* libPods-satellite-saver-2.a */; };
 		9B104C772277D0E00071BC75 /* librust_satellite_wrapper.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9B104C732277CF730071BC75 /* librust_satellite_wrapper.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		9B104C7D2277D68C0071BC75 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B104C7C2277D68C0071BC75 /* Foundation.framework */; };
 		9B104C7E2277DA010071BC75 /* librust_satellite_wrapper.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B104C732277CF730071BC75 /* librust_satellite_wrapper.dylib */; };
@@ -65,7 +65,7 @@
 		9BB07D4B2275FDBF00AE1CB7 /* NSColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Hex.swift"; sourceTree = "<group>"; };
 		9BE0C2F422790D28009D7D1F /* TLE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLE.swift; sourceTree = "<group>"; };
 		9BE0C2F822790FD4009D7D1F /* Manifest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manifest.swift; sourceTree = "<group>"; };
-		BC63E246742C6291F0BC09AC /* libPods-satellite-saver-2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-satellite-saver-2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD941FF1233E637463505AD1 /* libPods-satellite-saver-2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-satellite-saver-2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,9 +76,9 @@
 				9B104C7D2277D68C0071BC75 /* Foundation.framework in Frameworks */,
 				9B052E182273E22A00ECA3B9 /* Cocoa.framework in Frameworks */,
 				9B052E162273D9A300ECA3B9 /* ScreenSaver.framework in Frameworks */,
-				9B104C762277D09F0071BC75 /* libPods-satellite-saver-2.a in Frameworks */,
 				9B848F5022726B5300512383 /* libresolv.tbd in Frameworks */,
 				9B104C7E2277DA010071BC75 /* librust_satellite_wrapper.dylib in Frameworks */,
+				01FAA43E0D29B391F62DD265 /* libPods-satellite-saver-2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,7 +133,7 @@
 				9B052E172273E22A00ECA3B9 /* Cocoa.framework */,
 				9B052E152273D9A300ECA3B9 /* ScreenSaver.framework */,
 				9B848F4F22726B5300512383 /* libresolv.tbd */,
-				BC63E246742C6291F0BC09AC /* libPods-satellite-saver-2.a */,
+				CD941FF1233E637463505AD1 /* libPods-satellite-saver-2.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -165,9 +165,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9B5AA07F227262BD009CCD55 /* Build configuration list for PBXNativeTarget "satellite-saver-2" */;
 			buildPhases = (
+				08BCAA43DD6A515B9E727304 /* [CP] Check Pods Manifest.lock */,
 				9B104C6C2277B1540071BC75 /* Update Bundle Git Version */,
 				9B3A52912273531900206513 /* Cargo Build */,
-				08BCAA43DD6A515B9E727304 /* [CP] Check Pods Manifest.lock */,
 				9B5AA070227262BD009CCD55 /* Headers */,
 				9B5AA071227262BD009CCD55 /* Sources */,
 				9B104C7B2277D4130071BC75 /* Update dylib references */,
@@ -448,6 +448,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 7A264T7MNQ;
@@ -459,7 +460,10 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/rust/target/release";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/rust/target/release/deps/",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
@@ -469,6 +473,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.richinfante.satellite-saver-2";
 				PRODUCT_NAME = Satellite;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "satellite-saver-2/satellite-saver-2-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -483,6 +488,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 7A264T7MNQ;
@@ -494,7 +500,10 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/rust/target/release";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/rust/target/release/deps/",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
@@ -504,6 +513,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.richinfante.satellite-saver-2";
 				PRODUCT_NAME = Satellite;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "satellite-saver-2/satellite-saver-2-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;

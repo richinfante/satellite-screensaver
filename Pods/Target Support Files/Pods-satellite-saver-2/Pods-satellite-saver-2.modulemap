@@ -1,0 +1,6 @@
+framework module Pods_satellite_saver_2 {
+  umbrella header "Pods-satellite-saver-2-umbrella.h"
+
+  export *
+  module * { export * }
+}

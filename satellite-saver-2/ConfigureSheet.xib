@@ -333,7 +333,7 @@ Gw
                                             <rect key="frame" x="17" y="2" width="493" height="135"/>
                                             <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="3EX-gf-QAU">
                                                 <rect key="frame" x="0.0" y="0.0" width="478" height="135"/>
-                                                <autoresizingMask key="autoresizingMask"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="bar" smartInsertDelete="YES" id="exH-OX-x44">
                                                         <rect key="frame" x="0.0" y="0.0" width="478" height="135"/>

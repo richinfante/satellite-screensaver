@@ -11,4 +11,7 @@
 // Import the satellite header.
 #include "satellite_saver_2View.h"
 
+// Include cocoalumberjack
+//#include <CocoaLumberjack/CocoaLumberjack.h>
+
 #endif

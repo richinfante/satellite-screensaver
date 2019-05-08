@@ -234,23 +234,18 @@
     
 }
 
--(void)drawMarkerAtGPS:(NSPoint*) coords color:(NSColor*) color {
+-(void)drawMarkerAtGPS:(NSPoint*) coords color:(NSColor*) color markerSize:(CGFloat)markerSize{
     NSRect gpscoord = NSMakeRect(-180.0, -90.0, 360.0, 180.0);
     NSRect bounds = NSMakeRect(self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height);
 
-    // Fill the marker rectangle.
-    CGFloat boxRad = 5;
-    if ([self isPreview]) {
-        boxRad = 2.5;
-    }
     [color setFill];
     
     NSPoint current_pos_screen = [self convertCoordinateSpace:coords fromSpace:&gpscoord toSpace: &bounds];
-    NSRect marker_rect = NSMakeRect(current_pos_screen.x - boxRad, current_pos_screen.y - boxRad, boxRad * 2, boxRad * 2);
+    NSRect marker_rect = NSMakeRect(current_pos_screen.x - markerSize, current_pos_screen.y - markerSize, markerSize * 2, markerSize * 2);
     NSRectFill(marker_rect);
 }
 
--(void) drawMarkerText:(NSString*) text atGPS:(NSPoint*)coords {
+-(void) drawMarkerText:(NSString*) text atGPS:(NSPoint*)coords markerSize:(CGFloat) markerSize fontSize:(float)fontSize{
     NSRect gpscoord = NSMakeRect(-180.0, -90.0, 360.0, 180.0);
     
     // Define the screen coordinate space.
@@ -258,28 +253,24 @@
     
     NSPoint current_pos_screen = [self convertCoordinateSpace:coords fromSpace:&gpscoord toSpace: &bounds];
     
-    NSFont* satelliteFont = [NSFont fontWithName:@"Menlo" size:12.0];
+    NSFont* satelliteFont = [NSFont fontWithName:@"Menlo" size:fontSize];
     
     NSSize size = [text sizeWithAttributes: @{
         NSFontAttributeName: satelliteFont
     }];
     
-    // Fill the marker rectangle.
-    CGFloat boxRad = 5;
-    if ([self isPreview]) {
-        boxRad = 2.5;
-    }
+
     
     
     // If it's too far to the right, switch to left aligned text.
     NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-    CGFloat offset = boxRad * 4;
-    if (current_pos_screen.x + boxRad * boxRad + size.width > self.bounds.origin.x + self.bounds.size.width) {
+    CGFloat offset = markerSize * 4;
+    if (current_pos_screen.x + markerSize * markerSize + size.width > self.bounds.origin.x + self.bounds.size.width) {
         style.alignment = NSTextAlignmentRight;
         offset = -offset + - size.width;
     }
     
-    NSPoint atPoint = NSMakePoint(current_pos_screen.x + offset, current_pos_screen.y + boxRad / 2 - size.height / 2);
+    NSPoint atPoint = NSMakePoint(current_pos_screen.x + offset, current_pos_screen.y + markerSize / 2 - size.height / 2);
     
     if (self.enableLabelBackgrounds) {
         NSRect textBg = NSMakeRect(atPoint.x - 2, atPoint.y - 2, size.width + 4, size.height + 4);
@@ -309,7 +300,13 @@
     // Convert current pos.
     NSPoint current_pos = NSMakePoint(current.longitude, current.latitude);
     
-    [self drawMarkerAtGPS: &current_pos color: [tle trackColor]];
+    // Fill the marker rectangle.
+    CGFloat boxRad = 5;
+    if ([self isPreview]) {
+        boxRad = 2.5;
+    }
+    
+    [self drawMarkerAtGPS: &current_pos color: [tle trackColor] markerSize:boxRad];
 }
 
 -(void)drawMarkerText:(TLE*) tle {
@@ -332,7 +329,13 @@
         formatted = [NSString stringWithFormat: @"%@\nlat: %f°\nlng: %f°\nalt: %f km", tle.name, current.latitude, current.longitude, current.altitude];
     }
     
-    [self drawMarkerText:formatted atGPS:&current_pos];
+    // Fill the marker rectangle.
+    CGFloat boxRad = 5;
+    if ([self isPreview]) {
+        boxRad = 2.5;
+    }
+    
+    [self drawMarkerText:formatted atGPS:&current_pos markerSize:boxRad fontSize: 12];
 }
 
 -(void)drawTrack:(TLE*) tle {
@@ -505,14 +508,27 @@
         for (GroundStation* station in [stations reverseObjectEnumerator]) {
             NSPoint coords = [station getCoords];
             NSColor* color = [station getColorWithDefaultColor:self.trackColor];
-            [self drawMarkerAtGPS:&coords color: color];
+            CGFloat boxRad = [station getPointSizeWithDefaultSize:5];
+            
+            if ([self isPreview]) {
+                boxRad /= 2;
+            }
+            
+            [self drawMarkerAtGPS:&coords color: color markerSize: boxRad];
         }
         
         if (![self isPreview]) {
             for (GroundStation* station in [stations reverseObjectEnumerator]) {
                 if (station.title) {
                     NSPoint coords = [station getCoords];
-                    [self drawMarkerText:station.title atGPS:&coords];
+                    // Fill the marker rectangle.
+                    CGFloat boxRad = [station getPointSizeWithDefaultSize: 5];
+                    float fontSize = [station getFontSizeWithDefaultSize:12];
+                    if ([self isPreview]) {
+                        boxRad /= 2;
+                    }
+                    
+                    [self drawMarkerText:station.title atGPS:&coords markerSize:boxRad fontSize:fontSize];
                 }
             }
         }
