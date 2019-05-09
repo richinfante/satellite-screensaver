@@ -38,6 +38,7 @@
                                     @NO, @"enableDynamicGroundStations",
                                     @YES, @"enableLabels",
                                     @"https://public.richinfante.com/manifest/satellite-screensaver/manifest.json", @"manifestURL",
+                                    @"https://public.richinfante.com/satellite-screensaver/spaceports.json", @"dynamicGroundStationURL",
                                     @"ISS (ZARYA)", @"filterSatellites",
                                     @"https://celestrak.richinfante.com/tdrss.txt", @"customURL",
                                     @"[]", @"staticGroundStationJSON",
@@ -110,6 +111,7 @@
     [defaults setBool:NO forKey:@"enableDynamicGroundStations"];
     [defaults setBool:YES forKey:@"enableLabels"];
     [defaults setValue:@"https://public.richinfante.com/manifest/satellite-screensaver/manifest.json" forKey:@"manifestURL"];
+    [defaults setValue:@"https://public.richinfante.com/satellite-screensaver/spaceports.json" forKey:@"dynamicGroundStationURL"];
     [defaults setValue:@"[]" forKey:@"staticGroundStationJSON"];
     [defaults setValue:@"" forKey:@"dynamicGroundStationURL"];
     [defaults setValue:@"ISS (ZARYA)" forKey:@"filterSatellites"];
