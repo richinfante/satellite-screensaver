@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CocoaLumberjack
 
 @objcMembers class DeploymentManifest : NSObject, Codable {
     
@@ -65,8 +66,15 @@ import Foundation
     
     /// Initialize the deployment manifest from a URL
     static func initFromUrl(url: URL, completion: @escaping (DeploymentManifest?)->()) {
+        DDLogInfo("Loading manifest from \(url)")
+
         // Launch a task.
         let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+            // Log error info
+            if let error = error {
+                DDLogError("Failed to laod manifest \(error.localizedDescription)")
+            }
+            
             // If data is nil, fail.
             guard let data = data else {
                 return completion(nil)

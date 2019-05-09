@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CocoaLumberjack
 
 @objcMembers class GroundStation : NSObject, Codable {
     var latitude: Double
@@ -90,8 +91,13 @@ import Foundation
 
         guard let delegate = self.delegate else { return [] }
         
-        switch delegate.getGroundStationMode() {
+        let mode = delegate.getGroundStationMode();
+        DDLogDebug("Ground Station Mode: \(mode.rawValue)")
+        
+        switch mode {
         case .staticJSON:
+            
+            DDLogInfo("Parsing Static Stations List.")
             // Get static stations list
             guard let data = delegate.getStaticGroundStations() else { return [] }
             
@@ -107,8 +113,14 @@ import Foundation
             // Get url to fetch stations from
             guard let url = delegate.getDynamicGroundStationsURL() else { return [] }
             
+            DDLogInfo("Beginning Station Fetch using \(url)")
+            
             // Launch a task.
             let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+               
+                if let error = error {
+                    DDLogError("Station Fetch failed: \(error.localizedDescription)")
+                }
                 
                 // No data? return.
                 guard let data = data else { return }

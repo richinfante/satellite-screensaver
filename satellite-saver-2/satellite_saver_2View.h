@@ -15,6 +15,7 @@
 @class TLEFetcher;
 @class DeploymentManifest;
 @class GroundStationProvider;
+@class DDFileLogger;
 @protocol GroundStationProviderDelegate;
 
 @interface satellite_saver_2View : ScreenSaverView <GroundStationProviderDelegate>
@@ -30,6 +31,7 @@
 @property (retain, nonatomic) NSColor* mapColor;
 @property (retain, nonatomic) NSColor* backgroundColor;
 @property (retain, nonatomic) NSColor* textColor;
+@property (nonatomic) BOOL enableLabels;
 @property (nonatomic) BOOL enableDetailedLabels;
 @property (nonatomic) BOOL enableLabelBackgrounds;
 @property (nonatomic) BOOL enableTracks;
@@ -39,6 +41,7 @@
 @property (nonatomic) BOOL enableStaticGroundStations;
 @property (retain, nonatomic) NSString* staticGroundStationJSON;
 @property (retain, nonatomic) NSString* dynamicGroundStationURL;
+@property (retain, nonatomic) NSString* manifestURL;
 
 // Config seet outlets
 @property (strong) IBOutlet id configSheet;
@@ -47,6 +50,7 @@
 @property (strong) IBOutlet NSColorWell* mapColorField;
 @property (strong) IBOutlet NSColorWell* backgroundColorField;
 @property (strong) IBOutlet NSColorWell* textColorField;
+@property (strong) IBOutlet NSButton* enableLabelsField;
 @property (strong) IBOutlet NSButton* enableDetailedLabelsField;
 @property (strong) IBOutlet NSButton* enableLabelBackgroundsField;
 @property (strong) IBOutlet NSButton* enableTracksField;
@@ -61,15 +65,22 @@
 @property (strong) IBOutlet NSButton* enableDynamicGroundStationsField;
 @property (strong) IBOutlet NSButton* enableStaticGroundStationsField;
 
+// Debug Config
+
+@property (strong) IBOutlet NSTextField* manifestURLField;
+
 // Update checking
 @property (strong) IBOutlet NSButton* updateAvailableButton;
 @property (nonatomic) BOOL hasUpdates;
 @property (retain, nonatomic) NSString* updateURL;
 @property (retain, nonatomic) DeploymentManifest* deploymentManifest;
+@property (retain, nonatomic) DDFileLogger* fileLogger;
 
 /// Config sheet actions
 - (IBAction)configSheetCancelAction:(id)sender;
 - (IBAction)configSheetOKAction:(id)sender;
 - (IBAction)configSheetOpenUpdateURL:(id)sender;
 - (IBAction)didToggleGroundStationRadioButtons:(id)sender;
+- (IBAction)openGithubProject:(id)sender;
+- (IBAction)openDebugLogs:(id)sender;
 @end

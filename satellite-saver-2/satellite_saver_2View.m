@@ -36,6 +36,8 @@
                                     @NO, @"supressUpdateMessages",
                                     @YES, @"enableStaticGroundStations",
                                     @NO, @"enableDynamicGroundStations",
+                                    @YES, @"enableLabels",
+                                    @"https://public.richinfante.com/manifest/satellite-screensaver/manifest.json", @"manifestURL",
                                     @"ISS (ZARYA)", @"filterSatellites",
                                     @"https://celestrak.richinfante.com/tdrss.txt", @"customURL",
                                     @"[]", @"staticGroundStationJSON",
@@ -46,6 +48,23 @@
                                     @"ffffff", @"textColor",
                                     nil]];
         
+        
+        if (@available(macOS 10.12, *)) {
+            [DDLog addLogger:[DDOSLogger sharedInstance]];
+        }
+        
+        DDFileLogger *fileLogger = [[DDFileLogger alloc] init]; // File Logger
+        
+        fileLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
+
+        fileLogger.logFileManager.maximumNumberOfLogFiles = 7;
+        [DDLog addLogger:fileLogger];
+        
+        self.fileLogger = fileLogger;
+        
+        DDLogInfo(@"Initializing Satellite Saver.");
+
+        
         [self loadDefaults];
         
         // Set initial deploy config.
@@ -53,14 +72,18 @@
         self.deploymentManifest = nil;
 
         // BEGIN VERSION CHECKING -- delete if not needed.
-        NSURL* manifestURL = [[NSURL alloc] initWithString:@"https://public.richinfante.com/manifest/satellite-screensaver/manifest.json"];
+        NSURL* manifestURL = [[NSURL alloc] initWithString: self.manifestURL];
 
         // Check for updates
         [DeploymentManifest initFromUrlWithUrl:manifestURL completion:^(DeploymentManifest* manifest){
             self.deploymentManifest = manifest;
             
+            DDLogInfo(@"Needs Software Update: %d", [manifest needsUpdate]);
+
             // If update is needed, set info.
             if ([manifest needsUpdate]) {
+                DDLogInfo(@"Update URL: %@", [manifest updateUrl]);
+                DDLogInfo(@"Latest Build: %@", [manifest latestBuildString]);
                 self.updateURL = [manifest updateUrl];
                 self.hasUpdates = YES;
                 [self.updateAvailableButton setHidden:NO];
@@ -85,6 +108,8 @@
     [defaults setBool:NO forKey:@"supressUpdateMessages"];
     [defaults setBool:YES forKey:@"enableStaticGroundStations"];
     [defaults setBool:NO forKey:@"enableDynamicGroundStations"];
+    [defaults setBool:YES forKey:@"enableLabels"];
+    [defaults setValue:@"https://public.richinfante.com/manifest/satellite-screensaver/manifest.json" forKey:@"manifestURL"];
     [defaults setValue:@"[]" forKey:@"staticGroundStationJSON"];
     [defaults setValue:@"" forKey:@"dynamicGroundStationURL"];
     [defaults setValue:@"ISS (ZARYA)" forKey:@"filterSatellites"];
@@ -108,8 +133,10 @@
     self.enableTracks = [defaults boolForKey:@"enableTracks"];
     self.enableStatusMessages = [defaults boolForKey:@"enableStatusMessages"];
     self.supressUpdateMessages = [defaults boolForKey:@"supressUpdateMessages"];
+    self.enableLabels = [defaults boolForKey:@"enableLabels"];
     self.enableDynamicGroundStations = [defaults boolForKey:@"enableDynamicGroundStations"];
     self.enableStaticGroundStations = [defaults boolForKey:@"enableStaticGroundStations"];
+    self.manifestURL = [defaults stringForKey:@"manifestURL"];
     self.staticGroundStationJSON = [defaults stringForKey:@"staticGroundStationJSON"];
     self.dynamicGroundStationURL = [defaults stringForKey:@"dynamicGroundStationURL"];
     self.customURL = [defaults stringForKey:@"customURL"];
@@ -147,6 +174,8 @@
     [self.supressUpdateMessagesField setState: self.supressUpdateMessages ? NSControlStateValueOn : NSControlStateValueOff ];
     [self.enableStaticGroundStationsField setState: self.enableStaticGroundStations ? NSControlStateValueOn : NSControlStateValueOff ];
     [self.enableDynamicGroundStationsField setState: self.enableDynamicGroundStations ? NSControlStateValueOn : NSControlStateValueOff ];
+    [self.enableLabelsField setState: self.enableLabels ? NSControlStateValueOn : NSControlStateValueOff];
+    [self.manifestURLField setStringValue: self.manifestURL];
     [self.staticGroundStationJSONField setString: self.staticGroundStationJSON];
     [self.dynamicGroundStationURLField setStringValue: self.dynamicGroundStationURL];
     [self.customURLField setStringValue: self.customURL];
@@ -167,6 +196,8 @@
     [defaults setBool: self.supressUpdateMessages forKey:@"supressUpdateMessages"];
     [defaults setBool: self.enableStaticGroundStations forKey:@"enableStaticGroundStations"];
     [defaults setBool: self.enableDynamicGroundStations forKey:@"enableDynamicGroundStations"];
+    [defaults setBool: self.enableLabels forKey:@"enableLabels"];
+    [defaults setValue: self.manifestURL forKey:@"manifestURL"];
     [defaults setValue: self.staticGroundStationJSON forKey:@"staticGroundStationJSON"];
     [defaults setValue: self.dynamicGroundStationURL forKey:@"dynamicGroundStationURL"];
     [defaults setValue: self.customURL forKey:@"customURL"];
@@ -442,6 +473,9 @@
 
             // Detect internal errors.
             if (t.error) {
+                if (!tle.error) {
+                    DDLogError(@"Error predicting for %@", tle.name);
+                }
                 tle.error = YES;
                 continue;
             }
@@ -451,7 +485,9 @@
         }
         @catch ( NSException *e ) {
             tle.error = YES;
-            NSLog(@"Error Processing: %@: %@", [tle name], [e debugDescription]);
+            if (!tle.error) {
+                DDLogError(@"Error Processing: %@: %@", [tle name], [e debugDescription]);
+            }
         }
     }
     
@@ -517,7 +553,7 @@
             [self drawMarkerAtGPS:&coords color: color markerSize: boxRad];
         }
         
-        if (![self isPreview]) {
+        if (![self isPreview] && self.enableLabels) {
             for (GroundStation* station in [stations reverseObjectEnumerator]) {
                 if (station.title) {
                     NSPoint coords = [station getCoords];
@@ -546,7 +582,7 @@
         [self drawMarker: tle];
     }
 
-    if (![self isPreview]) {
+    if (![self isPreview] && self.enableLabels) {
         // Draw marker texts
         for (TLE* tle in [tles reverseObjectEnumerator]) {
             [self drawMarkerText: tle];
@@ -579,7 +615,7 @@
         
         if (![[NSBundle bundleForClass:[self class]] loadNibNamed:@"ConfigureSheet" owner:self topLevelObjects:&topLevelObjects])
         {
-            NSLog( @"Failed to load configure sheet." );
+            DDLogError( @"Failed to load configure sheet." );
             NSBeep();
         }
     }
@@ -610,6 +646,8 @@
     self.supressUpdateMessages = [self.supressUpdateMessagesField state] == NSControlStateValueOn;
     self.enableStaticGroundStations = [self.enableStaticGroundStationsField state] == NSControlStateValueOn;
     self.enableDynamicGroundStations = [self.enableDynamicGroundStationsField state] == NSControlStateValueOn;
+    self.enableLabels = [self.enableLabelsField state] == NSControlStateValueOn;
+    self.manifestURL = [self.manifestURLField stringValue];
     self.staticGroundStationJSON = [self.staticGroundStationJSONField string];
     self.dynamicGroundStationURL = [self.dynamicGroundStationURLField stringValue];
     self.customURL = [self.customURLField stringValue];
@@ -648,6 +686,16 @@
         [[self dynamicGroundStationURLField] setEditable:NO];
     }
 }
+
+- (IBAction)openDebugLogs:(id)sender {
+    [[NSWorkspace sharedWorkspace] openFile: [[self.fileLogger currentLogFileInfo] filePath]];
+}
+
+-(IBAction)openGithubProject:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL: [[NSURL alloc] initWithString:@"https://github.com/richinfante/satellite-screensaver"]];
+}
+
+
 - (NSURL * _Nullable)getDynamicGroundStationsURL {
     return [[NSURL alloc] initWithString:self.dynamicGroundStationURL];
 }
@@ -656,7 +704,7 @@
     if ([self enableStaticGroundStations]) {
         return GroundStationModeStaticJSON;
     } else if ([self enableDynamicGroundStations]) {
-        return GroundStationModeStaticJSON;
+        return GroundStationModeDynamicURL;
     } else {
         return GroundStationModeDisabled;
     }

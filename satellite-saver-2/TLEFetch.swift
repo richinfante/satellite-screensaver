@@ -8,6 +8,7 @@
 
 import Foundation
 import Cocoa
+import CocoaLumberjack
 
 /// Helper class to fetch TLEs
 @objcMembers class TLEFetcher : NSObject {
@@ -72,6 +73,11 @@ import Cocoa
         
         // Launch a task.
         let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+            // Log error info
+            if let error = error {
+                DDLogError("Error fetching tles: \(error.localizedDescription)")
+            }
+
             // If data is nil, fail.
             guard let data = data else {
                 self.fetch_error = true
