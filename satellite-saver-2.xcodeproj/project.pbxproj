@@ -24,6 +24,7 @@
 		9B5D6B8F22790AFF005AC713 /* world.json in Resources */ = {isa = PBXBuildFile; fileRef = 9B4E7EBA22729DB8008F8640 /* world.json */; };
 		9B848F5022726B5300512383 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B848F4F22726B5300512383 /* libresolv.tbd */; };
 		9BB07D4C2275FDBF00AE1CB7 /* NSColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB07D4B2275FDBF00AE1CB7 /* NSColor+Hex.swift */; };
+		9BDCFECA2284D5E100724921 /* PrefixHeader.pch in Headers */ = {isa = PBXBuildFile; fileRef = 9BDCFEC92284D5E100724921 /* PrefixHeader.pch */; };
 		9BE0C2F522790D28009D7D1F /* TLE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0C2F422790D28009D7D1F /* TLE.swift */; };
 		9BE0C2F922790FD4009D7D1F /* Manifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0C2F822790FD4009D7D1F /* Manifest.swift */; };
 /* End PBXBuildFile section */
@@ -63,6 +64,7 @@
 		9B5AA0832272677A009CCD55 /* rust */ = {isa = PBXFileReference; lastKnownFileType = folder; path = rust; sourceTree = "<group>"; };
 		9B848F4F22726B5300512383 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		9BB07D4B2275FDBF00AE1CB7 /* NSColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Hex.swift"; sourceTree = "<group>"; };
+		9BDCFEC92284D5E100724921 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		9BE0C2F422790D28009D7D1F /* TLE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLE.swift; sourceTree = "<group>"; };
 		9BE0C2F822790FD4009D7D1F /* Manifest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manifest.swift; sourceTree = "<group>"; };
 		CD941FF1233E637463505AD1 /* libPods-satellite-saver-2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-satellite-saver-2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -110,6 +112,7 @@
 				9B4E7EBC22729DD2008F8640 /* satellite-saver-2-Bridging-Header.h */,
 				9B5AA078227262BD009CCD55 /* satellite_saver_2View.h */,
 				9B5AA07A227262BD009CCD55 /* satellite_saver_2View.m */,
+				9BDCFEC92284D5E100724921 /* PrefixHeader.pch */,
 				9B4E7EBD22729DD3008F8640 /* GeoJSON.swift */,
 				9B3A528F2273319100206513 /* TLEFetch.swift */,
 				9BE0C2F422790D28009D7D1F /* TLE.swift */,
@@ -154,6 +157,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BDCFECA2284D5E100724921 /* PrefixHeader.pch in Headers */,
 				9B5AA079227262BD009CCD55 /* satellite_saver_2View.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -452,6 +456,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 7A264T7MNQ;
+				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/satellite-saver-2/PrefixHeader.pch";
 				INFOPLIST_FILE = "satellite-saver-2/Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
 				LD_NO_PIE = NO;
@@ -492,6 +497,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 7A264T7MNQ;
+				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/satellite-saver-2/PrefixHeader.pch";
 				INFOPLIST_FILE = "satellite-saver-2/Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
 				LD_NO_PIE = NO;
