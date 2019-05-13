@@ -42,7 +42,6 @@
                                     @"ISS (ZARYA)", @"filterSatellites",
                                     @"https://celestrak.richinfante.com/tdrss.txt", @"customURL",
                                     @"[]", @"staticGroundStationJSON",
-                                    @"", @"dynamicGroundStationURL",
                                     @"00ff00", @"trackColor",
                                     @"000000", @"backgroundColor",
                                     @"333333", @"mapColor",
@@ -113,7 +112,6 @@
     [defaults setValue:@"https://public.richinfante.com/manifest/satellite-screensaver/manifest.json" forKey:@"manifestURL"];
     [defaults setValue:@"https://public.richinfante.com/satellite-screensaver/spaceports.json" forKey:@"dynamicGroundStationURL"];
     [defaults setValue:@"[]" forKey:@"staticGroundStationJSON"];
-    [defaults setValue:@"" forKey:@"dynamicGroundStationURL"];
     [defaults setValue:@"ISS (ZARYA)" forKey:@"filterSatellites"];
     [defaults setValue:@"https://celestrak.richinfante.com/stations.txt" forKey:@"customURL"];
     [defaults setValue:@"00ff00" forKey:@"trackColor"];
