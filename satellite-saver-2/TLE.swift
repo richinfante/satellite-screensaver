@@ -48,6 +48,8 @@ import Foundation
         return self.track!
     }
     
+    // TODO: add iterator protocol for each TrackPoint to abstract away from C array?
+    
     /// Get current point (objc helper)
     @objc func get_current_point() -> TrackPoint {
         return self.track.current

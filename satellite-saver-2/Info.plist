@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>BundleGitVersion</key>
-	<string>4fa9b87ef6300a5106cfc19bee6efab85d5bb9fa</string>
+	<string>c2f4a836b6721e4e00ff7b5ad7dc52fc6ec7882a</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -17,9 +17,9 @@
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.1</string>
 	<key>CFBundleVersion</key>
-	<string>15</string>
+	<string>17</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2019 Rich Infante. All rights reserved.</string>
 	<key>NSPrincipalClass</key>

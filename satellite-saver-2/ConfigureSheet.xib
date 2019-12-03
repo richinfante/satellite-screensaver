@@ -36,7 +36,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="272" y="172" width="561" height="348"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
             <view key="contentView" id="Jae-bV-lBV">
                 <rect key="frame" x="0.0" y="0.0" width="561" height="348"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -302,6 +302,14 @@ Gw
                                                     <string>https://celestrak.richinfante.com/tle-new.txt</string>
                                                     <string>https://celestrak.richinfante.com/tdrss.txt</string>
                                                     <string>https://celestrak.richinfante.com/goes.txt</string>
+                                                    <string>https://celestrak.richinfante.com/starlink.txt</string>
+                                                    <string>https://celestrak.richinfante.com/musson.txt</string>
+                                                    <string>https://celestrak.richinfante.com/amateur.txt</string>
+                                                    <string>https://celestrak.richinfante.com/iridium-NEXT.txt</string>
+                                                    <string>https://celestrak.richinfante.com/molniya.txt</string>
+                                                    <string>https://celestrak.richinfante.com/science.txt</string>
+                                                    <string>https://celestrak.richinfante.com/military.txt</string>
+                                                    <string>https://celestrak.richinfante.com/sarsat.txt</string>
                                                 </objectValues>
                                             </comboBoxCell>
                                         </comboBox>
@@ -335,7 +343,7 @@ Gw
                                             <rect key="frame" x="17" y="2" width="493" height="154"/>
                                             <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="3EX-gf-QAU">
                                                 <rect key="frame" x="0.0" y="0.0" width="478" height="154"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
                                                     <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="bar" smartInsertDelete="YES" id="exH-OX-x44">
                                                         <rect key="frame" x="0.0" y="0.0" width="478" height="154"/>

@@ -384,73 +384,86 @@
     }
     
     struct Track t = [tle get_track];
-    for (int i = 0; i < 59; i++) {
+    // TODO: allow for varying precision per track.
+    // Implement using rust Vec<T>
+    
+    // Keep track of two previous computed x values. Used for horiz. velocity cals.
+    NSPoint last = NSMakePoint(0, 0);
+
+    // We don't draw the first semgent, it's impossible to detect direction of it.
+    // It's used purely for control.
+    for (int i = 1; i < 59; i++) {
         
         // Convert p0 and p1 (consecutive points) to the coord space.
         NSPoint p0_init = NSMakePoint(t.track[i].longitude, t.track[i].latitude);
         NSPoint p0 = [self convertCoordinateSpace:&p0_init fromSpace:&gpscoord toSpace: &bounds];
         NSPoint p1_init = NSMakePoint(t.track[i+1].longitude, t.track[i+1].latitude);
         NSPoint p1 = [self convertCoordinateSpace:&p1_init fromSpace:&gpscoord toSpace: &bounds];
-        [control1 moveToPoint:p0];
-        
-//        [control1 lineToPoint:p1];
-//        p0 = 180
-//        p1 = -180
-        // If normal absvalue adjustment is less than width-adjusted,
-        // HACK
-        
-        float xdist = fabs(p0.x - p1.x);
-        float nxdist = fabs(xdist - 360);
-        
 
-        if (xdist < nxdist) {
+        // Calculate the horizontal trajectory between the last two
+        float bias = p0.x - last.x;
+        float new_bias = p1.x - p0.x;
+        
+        // If biases are the same, paint them.
+        if ((bias > 0 && new_bias > 0) ||
+            (bias < 0 && new_bias < 0)) {
+            
+            // Draw
+            [control1 moveToPoint:p0];
             [control1 lineToPoint:p1];
         } else {
-            [control1 moveToPoint:p1];
-//            NSPoint p1_mida = NSMakePoint(p1.x, p1.y);
-//            if (p1_mida.x < p0.x) {
-//                p1_mida.x += self.bounds.size.width;
-//            } else {
-//                p1_mida.x -= self.bounds.size.width;
-//            }
-//
-//            tle.name = [NSString stringWithFormat:@"%@\n mv: x:%f nx: %f", tle.name, xdist, nxdist];
-//            [control1 lineToPoint:p1_mida];
-//
-//
-//            if (i < 58) {
-//                NSPoint p0_midb = NSMakePoint(p0.x, p0.y);
-//
-//                if (p0_midb.x < p1.x) {
-//                    p0_midb.x -= self.bounds.size.width;
-//                } else {
-//                    p0_midb.x += self.bounds.size.width;
-//                }
-//
-//
-//                [control1 moveToPoint:p0_midb];
-//                [control1 lineToPoint:p1];
-//            }
+            // Recompute p1 and *Then* draw.
+            
+            // P0 is >0 (EAST) but p1 is <0 (WEST)
+            // Recompute p1 to be 360 + p1.x
+            if (p0_init.x > 0 && p1_init.x < 0) {
+                p1_init = NSMakePoint(360 + t.track[i+1].longitude, t.track[i+1].latitude);
+                p1 = [self convertCoordinateSpace:&p1_init fromSpace:&gpscoord toSpace: &bounds];
+
+                [control1 moveToPoint:p0];
+                [control1 lineToPoint:p1];
+
+                // Now, draw joiner segment
+                p0_init = NSMakePoint(-(360 - t.track[i].longitude), t.track[i].latitude);
+                p0 = [self convertCoordinateSpace:&p0_init fromSpace:&gpscoord toSpace: &bounds];
+                
+                p1_init = NSMakePoint(t.track[i+1].longitude, t.track[i+1].latitude);
+                p1 = [self convertCoordinateSpace:&p1_init fromSpace:&gpscoord toSpace: &bounds];
+                
+                [control1 moveToPoint:p0];
+                [control1 lineToPoint:p1];
+            }
+            
+            // P0 is <0 (WEST) but p1 is >0 (EAST)
+            // Recompute p1 to be -(360 - p1.x)
+            else if (p0_init.x < 0 && p1_init.x > 0) {
+                p1_init = NSMakePoint(-(360 - t.track[i+1].longitude), t.track[i+1].latitude);
+                p1 = [self convertCoordinateSpace:&p1_init fromSpace:&gpscoord toSpace: &bounds];
+                
+                [control1 moveToPoint:p0];
+                [control1 lineToPoint:p1];
+                
+                // Now, draw joiner segment
+                p0_init = NSMakePoint(360 + t.track[i].longitude, t.track[i].latitude);
+                p0 = [self convertCoordinateSpace:&p0_init fromSpace:&gpscoord toSpace: &bounds];
+                
+                p1_init = NSMakePoint(t.track[i+1].longitude, t.track[i+1].latitude);
+                p1 = [self convertCoordinateSpace:&p1_init fromSpace:&gpscoord toSpace: &bounds];
+                
+                [control1 moveToPoint:p0];
+                [control1 lineToPoint:p1];
+            }
+            
+            // The last semgent was probably the joiner.
+            // Draw Normally.
+            else {
+                [control1 moveToPoint:p0];
+                [control1 lineToPoint:p1];
+            }
         }
-        
-//        // If they're very far away, it's likely because it wraps the screen.
-//        // To prevent the bezier curve making a line across, move instead of line.
-//        if (fabs(p0.x - p1.x) < fabs(p0.x ) {
-//            [control1 lineToPoint:p1];
-//        } else {
-//            NSPoint adjusted_point = NSMakePoint(p1_init.x, p1_init.y);
-//            if (p0_init.x < 0 && p1_init.x > 0) {
-//                adjusted_point.x += 360;
-//            } else {
-//                adjusted_point.x -= 360;
-//            }
-//
-//            NSPoint p1m = [self convertCoordinateSpace:&adjusted_point fromSpace:&gpscoord toSpace: &bounds];
-//
-////             [control1 moveToPoint:p1];
-//            [control1 lineToPoint:p1m];
-//        }
-        
+
+        // Copy value into the last point storage
+        last = p0;
     }
     
     // Fill the path.
