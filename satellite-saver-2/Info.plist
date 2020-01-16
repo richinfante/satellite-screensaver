@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>BundleGitVersion</key>
-	<string>1f8209f4e3a88e8e29a545ec9bc8a8766b995a19</string>
+	<string>ebd83fe7be8dddd8daa988a6e69edd7c0b47066f</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

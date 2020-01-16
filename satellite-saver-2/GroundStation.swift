@@ -77,6 +77,7 @@ import CocoaLumberjack
 @objcMembers class GroundStationProvider : NSObject {
     var delegate: GroundStationProviderDelegate?
     var stations: [GroundStation]? = nil
+    var is_loading_stations: Bool = false
     
     /// Purge all cached stations from memory.
     func purge() {
@@ -87,6 +88,10 @@ import CocoaLumberjack
     func getStations() -> [GroundStation] {
         if let stations = self.stations {
             return stations
+        }
+        
+        if self.is_loading_stations {
+            return []
         }
 
         guard let delegate = self.delegate else { return [] }
@@ -115,9 +120,13 @@ import CocoaLumberjack
             
             DDLogInfo("Beginning Station Fetch using \(url)")
             
+            self.is_loading_stations = true
+            
             // Launch a task.
             let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
                
+                self.is_loading_stations = false
+                
                 if let error = error {
                     DDLogError("Station Fetch failed: \(error.localizedDescription)")
                 }
