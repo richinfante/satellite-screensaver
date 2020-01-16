@@ -45,6 +45,7 @@
 
 // Config seet outlets
 @property (strong) IBOutlet id configSheet;
+@property (strong) IBOutlet NSButton* configOKButton;
 @property (strong) IBOutlet NSTextField* aboutLabel;
 @property (strong) IBOutlet NSColorWell* trackColorField;
 @property (strong) IBOutlet NSColorWell* mapColorField;
@@ -77,6 +78,7 @@
 @property (retain, nonatomic) DDFileLogger* fileLogger;
 
 /// Config sheet actions
+- (void)setup;
 - (IBAction)configSheetCancelAction:(id)sender;
 - (IBAction)configSheetOKAction:(id)sender;
 - (IBAction)configSheetOpenUpdateURL:(id)sender;

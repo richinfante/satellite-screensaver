@@ -1,0 +1,6 @@
+module Pods_satellite_viewer {
+  umbrella header "Pods-satellite-viewer-umbrella.h"
+
+  export *
+  module * { export * }
+}

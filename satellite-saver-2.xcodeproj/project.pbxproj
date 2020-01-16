@@ -7,13 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		86DC9CA164FDF2A8639AF33B /* libPods-satellite-saver-2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B76082F8182DDF9E53FD1CD /* libPods-satellite-saver-2.a */; };
+		1DE9F255CADF1EC715DDD15E /* libPods-satellite-saver-2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C92ED16C6D3336C2463F840D /* libPods-satellite-saver-2.a */; };
 		9B052E122273BC5400ECA3B9 /* ConfigureSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B052E112273BC5400ECA3B9 /* ConfigureSheet.xib */; };
 		9B052E162273D9A300ECA3B9 /* ScreenSaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B052E152273D9A300ECA3B9 /* ScreenSaver.framework */; };
 		9B052E182273E22A00ECA3B9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B052E172273E22A00ECA3B9 /* Cocoa.framework */; };
 		9B104C772277D0E00071BC75 /* librust_satellite_wrapper.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9B104C732277CF730071BC75 /* librust_satellite_wrapper.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		9B104C7D2277D68C0071BC75 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B104C7C2277D68C0071BC75 /* Foundation.framework */; };
 		9B104C7E2277DA010071BC75 /* librust_satellite_wrapper.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B104C732277CF730071BC75 /* librust_satellite_wrapper.dylib */; };
+		9B1C7DF2239E7D1D005B5A6A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1C7DF1239E7D1D005B5A6A /* AppDelegate.swift */; };
+		9B1C7DF4239E7D1D005B5A6A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1C7DF3239E7D1D005B5A6A /* ViewController.swift */; };
+		9B1C7DF6239E7D1E005B5A6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B1C7DF5239E7D1E005B5A6A /* Assets.xcassets */; };
+		9B1C7DF9239E7D1E005B5A6A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B1C7DF7239E7D1E005B5A6A /* Main.storyboard */; };
+		9B1C7E05239E7D1E005B5A6A /* satellite_viewerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1C7E04239E7D1E005B5A6A /* satellite_viewerTests.swift */; };
+		9B1C7E0D239E7F70005B5A6A /* satellite-saver-2-Bridging-Header.h in Sources */ = {isa = PBXBuildFile; fileRef = 9B4E7EBC22729DD2008F8640 /* satellite-saver-2-Bridging-Header.h */; };
+		9B1C7E0E239E7F70005B5A6A /* satellite_saver_2View.h in Sources */ = {isa = PBXBuildFile; fileRef = 9B5AA078227262BD009CCD55 /* satellite_saver_2View.h */; };
+		9B1C7E0F239E7F70005B5A6A /* satellite_saver_2View.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B5AA07A227262BD009CCD55 /* satellite_saver_2View.m */; };
+		9B1C7E10239E7F70005B5A6A /* GeoJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4E7EBD22729DD3008F8640 /* GeoJSON.swift */; };
+		9B1C7E11239E7F70005B5A6A /* TLEFetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3A528F2273319100206513 /* TLEFetch.swift */; };
+		9B1C7E12239E7F70005B5A6A /* TLE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0C2F422790D28009D7D1F /* TLE.swift */; };
+		9B1C7E13239E7F70005B5A6A /* GroundStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B220BF7227B161F001FE635 /* GroundStation.swift */; };
+		9B1C7E14239E7F70005B5A6A /* NSColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB07D4B2275FDBF00AE1CB7 /* NSColor+Hex.swift */; };
+		9B1C7E15239E7F70005B5A6A /* ConfigureSheet.xib in Sources */ = {isa = PBXBuildFile; fileRef = 9B052E112273BC5400ECA3B9 /* ConfigureSheet.xib */; };
+		9B1C7E16239E7F70005B5A6A /* Manifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0C2F822790FD4009D7D1F /* Manifest.swift */; };
 		9B220BF8227B161F001FE635 /* GroundStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B220BF7227B161F001FE635 /* GroundStation.swift */; };
 		9B3A528D227324B900206513 /* thumbnail.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B3A528B227324B900206513 /* thumbnail.png */; };
 		9B3A528E227324B900206513 /* thumbnail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B3A528C227324B900206513 /* thumbnail@2x.png */; };
@@ -23,11 +38,28 @@
 		9B5AA07B227262BD009CCD55 /* satellite_saver_2View.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B5AA07A227262BD009CCD55 /* satellite_saver_2View.m */; };
 		9B5D6B8F22790AFF005AC713 /* world.json in Resources */ = {isa = PBXBuildFile; fileRef = 9B4E7EBA22729DB8008F8640 /* world.json */; };
 		9B848F5022726B5300512383 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B848F4F22726B5300512383 /* libresolv.tbd */; };
+		9B8AF4DF239E8469000CAAF2 /* librust_satellite_wrapper.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B104C732277CF730071BC75 /* librust_satellite_wrapper.dylib */; };
+		9B8AF4E3239E8544000CAAF2 /* librust_satellite_wrapper.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9B8AF4E2239E8543000CAAF2 /* librust_satellite_wrapper.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9B8AF4E4239E8562000CAAF2 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B848F4F22726B5300512383 /* libresolv.tbd */; };
+		9B8AF4E5239E857D000CAAF2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B104C7C2277D68C0071BC75 /* Foundation.framework */; };
+		9B8AF4E6239E8581000CAAF2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B052E172273E22A00ECA3B9 /* Cocoa.framework */; };
+		9B8AF4E8239E873F000CAAF2 /* world.json in Resources */ = {isa = PBXBuildFile; fileRef = 9B4E7EBA22729DB8008F8640 /* world.json */; };
 		9BB07D4C2275FDBF00AE1CB7 /* NSColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB07D4B2275FDBF00AE1CB7 /* NSColor+Hex.swift */; };
 		9BDCFECA2284D5E100724921 /* PrefixHeader.pch in Headers */ = {isa = PBXBuildFile; fileRef = 9BDCFEC92284D5E100724921 /* PrefixHeader.pch */; };
 		9BE0C2F522790D28009D7D1F /* TLE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0C2F422790D28009D7D1F /* TLE.swift */; };
 		9BE0C2F922790FD4009D7D1F /* Manifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE0C2F822790FD4009D7D1F /* Manifest.swift */; };
+		9E410AB940B37F55F2DAA8EB /* libPods-satellite-viewer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D76239F24974098D8EF8B97B /* libPods-satellite-viewer.a */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9B1C7E01239E7D1E005B5A6A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9B5AA06C227262BD009CCD55 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9B1C7DEE239E7D1D005B5A6A;
+			remoteInfo = "satellite-viewer";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		9B104C712277CF1C0071BC75 /* CopyFiles */ = {
@@ -40,17 +72,39 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9B8AF4E1239E8527000CAAF2 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				9B8AF4E3239E8544000CAAF2 /* librust_satellite_wrapper.dylib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0E454E2A82FAD952B768A3C7 /* Pods-satellite-saver-2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-satellite-saver-2.release.xcconfig"; path = "Target Support Files/Pods-satellite-saver-2/Pods-satellite-saver-2.release.xcconfig"; sourceTree = "<group>"; };
-		2B76082F8182DDF9E53FD1CD /* libPods-satellite-saver-2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-satellite-saver-2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		86B45B1E7B0D96D7687A8DAE /* Pods-satellite-saver-2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-satellite-saver-2.debug.xcconfig"; path = "Target Support Files/Pods-satellite-saver-2/Pods-satellite-saver-2.debug.xcconfig"; sourceTree = "<group>"; };
+		3FC8A3CCE82EFA3DFA8FCDBA /* Pods-satellite-saver-2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-satellite-saver-2.debug.xcconfig"; path = "Target Support Files/Pods-satellite-saver-2/Pods-satellite-saver-2.debug.xcconfig"; sourceTree = "<group>"; };
+		90038553DC59A64876165DCF /* Pods-satellite-viewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-satellite-viewer.release.xcconfig"; path = "Target Support Files/Pods-satellite-viewer/Pods-satellite-viewer.release.xcconfig"; sourceTree = "<group>"; };
 		9B052E112273BC5400ECA3B9 /* ConfigureSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfigureSheet.xib; sourceTree = "<group>"; };
 		9B052E152273D9A300ECA3B9 /* ScreenSaver.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScreenSaver.framework; path = System/Library/Frameworks/ScreenSaver.framework; sourceTree = SDKROOT; };
 		9B052E172273E22A00ECA3B9 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		9B104C732277CF730071BC75 /* librust_satellite_wrapper.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = librust_satellite_wrapper.dylib; path = rust/target/release/librust_satellite_wrapper.dylib; sourceTree = "<group>"; };
 		9B104C7C2277D68C0071BC75 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		9B1C7DEF239E7D1D005B5A6A /* satellite-viewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "satellite-viewer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B1C7DF1239E7D1D005B5A6A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		9B1C7DF3239E7D1D005B5A6A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9B1C7DF5239E7D1E005B5A6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9B1C7DF8239E7D1E005B5A6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		9B1C7DFA239E7D1E005B5A6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9B1C7DFB239E7D1E005B5A6A /* satellite_viewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = satellite_viewer.entitlements; sourceTree = "<group>"; };
+		9B1C7E00239E7D1E005B5A6A /* satellite-viewerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "satellite-viewerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B1C7E04239E7D1E005B5A6A /* satellite_viewerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = satellite_viewerTests.swift; sourceTree = "<group>"; };
+		9B1C7E06239E7D1E005B5A6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9B1C7E17239E7FE5005B5A6A /* libCocoaLumberjack.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libCocoaLumberjack.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B1C7E1A239E7FFC005B5A6A /* libCocoaLumberjack.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libCocoaLumberjack.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B1C7E1F239E805F005B5A6A /* libCocoaLumberjack.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libCocoaLumberjack.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B220BF7227B161F001FE635 /* GroundStation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundStation.swift; sourceTree = "<group>"; };
 		9B3A528B227324B900206513 /* thumbnail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thumbnail.png; sourceTree = "<group>"; };
 		9B3A528C227324B900206513 /* thumbnail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumbnail@2x.png"; sourceTree = "<group>"; };
@@ -64,14 +118,39 @@
 		9B5AA07C227262BD009CCD55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B5AA0832272677A009CCD55 /* rust */ = {isa = PBXFileReference; lastKnownFileType = folder; path = rust; sourceTree = "<group>"; };
 		9B848F4F22726B5300512383 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
+		9B8AF4E2239E8543000CAAF2 /* librust_satellite_wrapper.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = librust_satellite_wrapper.dylib; path = rust/target/release/librust_satellite_wrapper.dylib; sourceTree = "<group>"; };
+		9B8AF4E7239E860C000CAAF2 /* satellite-viewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "satellite-viewer.entitlements"; sourceTree = "<group>"; };
 		9BB07D4B2275FDBF00AE1CB7 /* NSColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Hex.swift"; sourceTree = "<group>"; };
 		9BDCFEC92284D5E100724921 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		9BDCFECC2284DA1A00724921 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaLumberjack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BE0C2F422790D28009D7D1F /* TLE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLE.swift; sourceTree = "<group>"; };
 		9BE0C2F822790FD4009D7D1F /* Manifest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manifest.swift; sourceTree = "<group>"; };
+		C92ED16C6D3336C2463F840D /* libPods-satellite-saver-2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-satellite-saver-2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBC50CBC1CC0175B326A85E4 /* Pods-satellite-saver-2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-satellite-saver-2.release.xcconfig"; path = "Target Support Files/Pods-satellite-saver-2/Pods-satellite-saver-2.release.xcconfig"; sourceTree = "<group>"; };
+		D76239F24974098D8EF8B97B /* libPods-satellite-viewer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-satellite-viewer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F25B00D3C367664CBECBECB4 /* Pods-satellite-viewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-satellite-viewer.debug.xcconfig"; path = "Target Support Files/Pods-satellite-viewer/Pods-satellite-viewer.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		9B1C7DEC239E7D1D005B5A6A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B8AF4E6239E8581000CAAF2 /* Cocoa.framework in Frameworks */,
+				9B8AF4E5239E857D000CAAF2 /* Foundation.framework in Frameworks */,
+				9B8AF4E4239E8562000CAAF2 /* libresolv.tbd in Frameworks */,
+				9B8AF4DF239E8469000CAAF2 /* librust_satellite_wrapper.dylib in Frameworks */,
+				9E410AB940B37F55F2DAA8EB /* libPods-satellite-viewer.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B1C7DFD239E7D1E005B5A6A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9B5AA072227262BD009CCD55 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -81,18 +160,44 @@
 				9B052E162273D9A300ECA3B9 /* ScreenSaver.framework in Frameworks */,
 				9B848F5022726B5300512383 /* libresolv.tbd in Frameworks */,
 				9B104C7E2277DA010071BC75 /* librust_satellite_wrapper.dylib in Frameworks */,
-				86DC9CA164FDF2A8639AF33B /* libPods-satellite-saver-2.a in Frameworks */,
+				1DE9F255CADF1EC715DDD15E /* libPods-satellite-saver-2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9B1C7DF0239E7D1D005B5A6A /* satellite-viewer */ = {
+			isa = PBXGroup;
+			children = (
+				9B8AF4E7239E860C000CAAF2 /* satellite-viewer.entitlements */,
+				9B1C7DF1239E7D1D005B5A6A /* AppDelegate.swift */,
+				9B1C7DF3239E7D1D005B5A6A /* ViewController.swift */,
+				9B1C7DF5239E7D1E005B5A6A /* Assets.xcassets */,
+				9B1C7DF7239E7D1E005B5A6A /* Main.storyboard */,
+				9B1C7DFA239E7D1E005B5A6A /* Info.plist */,
+				9B1C7DFB239E7D1E005B5A6A /* satellite_viewer.entitlements */,
+			);
+			path = "satellite-viewer";
+			sourceTree = "<group>";
+		};
+		9B1C7E03239E7D1E005B5A6A /* satellite-viewerTests */ = {
+			isa = PBXGroup;
+			children = (
+				9B1C7E04239E7D1E005B5A6A /* satellite_viewerTests.swift */,
+				9B1C7E06239E7D1E005B5A6A /* Info.plist */,
+			);
+			path = "satellite-viewerTests";
+			sourceTree = "<group>";
+		};
 		9B5AA06B227262BD009CCD55 = {
 			isa = PBXGroup;
 			children = (
+				9B8AF4E2239E8543000CAAF2 /* librust_satellite_wrapper.dylib */,
 				9B5AA0832272677A009CCD55 /* rust */,
 				9B5AA077227262BD009CCD55 /* satellite-saver-2 */,
+				9B1C7DF0239E7D1D005B5A6A /* satellite-viewer */,
+				9B1C7E03239E7D1E005B5A6A /* satellite-viewerTests */,
 				9B5AA076227262BD009CCD55 /* Products */,
 				9B5AA08522726A73009CCD55 /* Frameworks */,
 				B236EF4156E9D93AED3E8B88 /* Pods */,
@@ -103,6 +208,8 @@
 			isa = PBXGroup;
 			children = (
 				9B5AA075227262BD009CCD55 /* Satellite.saver */,
+				9B1C7DEF239E7D1D005B5A6A /* satellite-viewer.app */,
+				9B1C7E00239E7D1E005B5A6A /* satellite-viewerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -132,13 +239,17 @@
 		9B5AA08522726A73009CCD55 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9B1C7E1F239E805F005B5A6A /* libCocoaLumberjack.a */,
+				9B1C7E1A239E7FFC005B5A6A /* libCocoaLumberjack.a */,
+				9B1C7E17239E7FE5005B5A6A /* libCocoaLumberjack.a */,
 				9B104C7C2277D68C0071BC75 /* Foundation.framework */,
 				9B104C732277CF730071BC75 /* librust_satellite_wrapper.dylib */,
 				9B052E172273E22A00ECA3B9 /* Cocoa.framework */,
 				9B052E152273D9A300ECA3B9 /* ScreenSaver.framework */,
 				9B848F4F22726B5300512383 /* libresolv.tbd */,
 				9BDCFECC2284DA1A00724921 /* CocoaLumberjack.framework */,
-				2B76082F8182DDF9E53FD1CD /* libPods-satellite-saver-2.a */,
+				C92ED16C6D3336C2463F840D /* libPods-satellite-saver-2.a */,
+				D76239F24974098D8EF8B97B /* libPods-satellite-viewer.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -146,8 +257,10 @@
 		B236EF4156E9D93AED3E8B88 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				86B45B1E7B0D96D7687A8DAE /* Pods-satellite-saver-2.debug.xcconfig */,
-				0E454E2A82FAD952B768A3C7 /* Pods-satellite-saver-2.release.xcconfig */,
+				3FC8A3CCE82EFA3DFA8FCDBA /* Pods-satellite-saver-2.debug.xcconfig */,
+				CBC50CBC1CC0175B326A85E4 /* Pods-satellite-saver-2.release.xcconfig */,
+				F25B00D3C367664CBECBECB4 /* Pods-satellite-viewer.debug.xcconfig */,
+				90038553DC59A64876165DCF /* Pods-satellite-viewer.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -167,11 +280,49 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		9B1C7DEE239E7D1D005B5A6A /* satellite-viewer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9B1C7E07239E7D1E005B5A6A /* Build configuration list for PBXNativeTarget "satellite-viewer" */;
+			buildPhases = (
+				A563542BBD8ACB6210C3F3E5 /* [CP] Check Pods Manifest.lock */,
+				9B1C7DEB239E7D1D005B5A6A /* Sources */,
+				9B8AF4E0239E8476000CAAF2 /* Update Dylib References */,
+				9B1C7DEC239E7D1D005B5A6A /* Frameworks */,
+				9B1C7DED239E7D1D005B5A6A /* Resources */,
+				9B8AF4E1239E8527000CAAF2 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "satellite-viewer";
+			productName = "satellite-viewer";
+			productReference = 9B1C7DEF239E7D1D005B5A6A /* satellite-viewer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9B1C7DFF239E7D1E005B5A6A /* satellite-viewerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9B1C7E0A239E7D1E005B5A6A /* Build configuration list for PBXNativeTarget "satellite-viewerTests" */;
+			buildPhases = (
+				9B1C7DFC239E7D1E005B5A6A /* Sources */,
+				9B1C7DFD239E7D1E005B5A6A /* Frameworks */,
+				9B1C7DFE239E7D1E005B5A6A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9B1C7E02239E7D1E005B5A6A /* PBXTargetDependency */,
+			);
+			name = "satellite-viewerTests";
+			productName = "satellite-viewerTests";
+			productReference = 9B1C7E00239E7D1E005B5A6A /* satellite-viewerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		9B5AA074227262BD009CCD55 /* satellite-saver-2 */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9B5AA07F227262BD009CCD55 /* Build configuration list for PBXNativeTarget "satellite-saver-2" */;
 			buildPhases = (
-				08BCAA43DD6A515B9E727304 /* [CP] Check Pods Manifest.lock */,
+				84C9FE91C527754A336C9337 /* [CP] Check Pods Manifest.lock */,
 				9B104C6C2277B1540071BC75 /* Update Bundle Git Version */,
 				9B3A52912273531900206513 /* Cargo Build */,
 				9B5AA070227262BD009CCD55 /* Headers */,
@@ -196,9 +347,22 @@
 		9B5AA06C227262BD009CCD55 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1030;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Rich Infante";
 				TargetAttributes = {
+					9B1C7DEE239E7D1D005B5A6A = {
+						CreatedOnToolsVersion = 10.3;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
+					};
+					9B1C7DFF239E7D1E005B5A6A = {
+						CreatedOnToolsVersion = 10.3;
+						TestTargetID = 9B1C7DEE239E7D1D005B5A6A;
+					};
 					9B5AA074227262BD009CCD55 = {
 						CreatedOnToolsVersion = 10.2.1;
 						LastSwiftMigration = 1020;
@@ -219,11 +383,30 @@
 			projectRoot = "";
 			targets = (
 				9B5AA074227262BD009CCD55 /* satellite-saver-2 */,
+				9B1C7DEE239E7D1D005B5A6A /* satellite-viewer */,
+				9B1C7DFF239E7D1E005B5A6A /* satellite-viewerTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		9B1C7DED239E7D1D005B5A6A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B8AF4E8239E873F000CAAF2 /* world.json in Resources */,
+				9B1C7DF6239E7D1E005B5A6A /* Assets.xcassets in Resources */,
+				9B1C7DF9239E7D1E005B5A6A /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B1C7DFE239E7D1E005B5A6A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9B5AA073227262BD009CCD55 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -238,7 +421,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		08BCAA43DD6A515B9E727304 /* [CP] Check Pods Manifest.lock */ = {
+		84C9FE91C527754A336C9337 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -314,9 +497,76 @@
 			shellPath = /bin/sh;
 			shellScript = "PATH=\"$HOME/.cargo/bin:$PATH\"\ncd rust && cargo build --release\n";
 		};
+		9B8AF4E0239E8476000CAAF2 /* Update Dylib References */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Update Dylib References";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export DYLIB=librust_satellite_wrapper.dylib\ninstall_name_tool -change \"$PROJECT_DIR/rust/target/release/deps/$DYLIB\" \"@rpath/$DYLIB\" \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/$PRODUCT_NAME\"\n";
+		};
+		A563542BBD8ACB6210C3F3E5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-satellite-viewer-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		9B1C7DEB239E7D1D005B5A6A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B1C7E0D239E7F70005B5A6A /* satellite-saver-2-Bridging-Header.h in Sources */,
+				9B1C7E0E239E7F70005B5A6A /* satellite_saver_2View.h in Sources */,
+				9B1C7E0F239E7F70005B5A6A /* satellite_saver_2View.m in Sources */,
+				9B1C7E10239E7F70005B5A6A /* GeoJSON.swift in Sources */,
+				9B1C7E11239E7F70005B5A6A /* TLEFetch.swift in Sources */,
+				9B1C7E12239E7F70005B5A6A /* TLE.swift in Sources */,
+				9B1C7E13239E7F70005B5A6A /* GroundStation.swift in Sources */,
+				9B1C7E14239E7F70005B5A6A /* NSColor+Hex.swift in Sources */,
+				9B1C7E15239E7F70005B5A6A /* ConfigureSheet.xib in Sources */,
+				9B1C7E16239E7F70005B5A6A /* Manifest.swift in Sources */,
+				9B1C7DF4239E7D1D005B5A6A /* ViewController.swift in Sources */,
+				9B1C7DF2239E7D1D005B5A6A /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B1C7DFC239E7D1E005B5A6A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B1C7E05239E7D1E005B5A6A /* satellite_viewerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9B5AA071227262BD009CCD55 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -333,7 +583,128 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		9B1C7E02239E7D1E005B5A6A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9B1C7DEE239E7D1D005B5A6A /* satellite-viewer */;
+			targetProxy = 9B1C7E01239E7D1E005B5A6A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		9B1C7DF7239E7D1E005B5A6A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9B1C7DF8239E7D1E005B5A6A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		9B1C7E08239E7D1E005B5A6A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F25B00D3C367664CBECBECB4 /* Pods-satellite-viewer.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "satellite-viewer/satellite-viewer.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 19;
+				DEVELOPMENT_TEAM = 7A264T7MNQ;
+				INFOPLIST_FILE = "satellite-viewer/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/rust/target/release",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.richinfante.satellite-viewer";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "satellite-saver-2/satellite-saver-2-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "Satellite-Swift.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		9B1C7E09239E7D1E005B5A6A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 90038553DC59A64876165DCF /* Pods-satellite-viewer.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "satellite-viewer/satellite-viewer.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 19;
+				DEVELOPMENT_TEAM = 7A264T7MNQ;
+				INFOPLIST_FILE = "satellite-viewer/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/rust/target/release",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.richinfante.satellite-viewer";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "satellite-saver-2/satellite-saver-2-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "Satellite-Swift.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		9B1C7E0B239E7D1E005B5A6A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 7A264T7MNQ;
+				INFOPLIST_FILE = "satellite-viewerTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.richinfante.satellite-viewerTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/satellite-viewer.app/Contents/MacOS/satellite-viewer";
+			};
+			name = Debug;
+		};
+		9B1C7E0C239E7D1E005B5A6A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 7A264T7MNQ;
+				INFOPLIST_FILE = "satellite-viewerTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.richinfante.satellite-viewerTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/satellite-viewer.app/Contents/MacOS/satellite-viewer";
+			};
+			name = Release;
+		};
 		9B5AA07D227262BD009CCD55 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -452,13 +823,14 @@
 		};
 		9B5AA080227262BD009CCD55 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 86B45B1E7B0D96D7687A8DAE /* Pods-satellite-saver-2.debug.xcconfig */;
+			baseConfigurationReference = 3FC8A3CCE82EFA3DFA8FCDBA /* Pods-satellite-saver-2.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = 7A264T7MNQ;
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/satellite-saver-2/PrefixHeader.pch";
 				INFOPLIST_FILE = "satellite-saver-2/Info.plist";
@@ -493,13 +865,14 @@
 		};
 		9B5AA081227262BD009CCD55 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0E454E2A82FAD952B768A3C7 /* Pods-satellite-saver-2.release.xcconfig */;
+			baseConfigurationReference = CBC50CBC1CC0175B326A85E4 /* Pods-satellite-saver-2.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = 7A264T7MNQ;
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/satellite-saver-2/PrefixHeader.pch";
 				INFOPLIST_FILE = "satellite-saver-2/Info.plist";
@@ -534,6 +907,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		9B1C7E07239E7D1E005B5A6A /* Build configuration list for PBXNativeTarget "satellite-viewer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9B1C7E08239E7D1E005B5A6A /* Debug */,
+				9B1C7E09239E7D1E005B5A6A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9B1C7E0A239E7D1E005B5A6A /* Build configuration list for PBXNativeTarget "satellite-viewerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9B1C7E0B239E7D1E005B5A6A /* Debug */,
+				9B1C7E0C239E7D1E005B5A6A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		9B5AA06F227262BD009CCD55 /* Build configuration list for PBXProject "satellite-saver-2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>BundleGitVersion</key>
-	<string>1f8209f4e3a88e8e29a545ec9bc8a8766b995a19</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -17,12 +15,8 @@
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.1</string>
+	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>$(CURRENT_PROJECT_VERSION)</string>
-	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2019 Rich Infante. All rights reserved.</string>
-	<key>NSPrincipalClass</key>
-	<string>satellite_saver_2View</string>
+	<string>1</string>
 </dict>
 </plist>

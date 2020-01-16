@@ -72,7 +72,7 @@ import CocoaLumberjack
         let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
             // Log error info
             if let error = error {
-                DDLogError("Failed to laod manifest \(error.localizedDescription)")
+                DDLogError("Failed to load manifest \(error.localizedDescription)")
             }
             
             // If data is nil, fail.

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15702" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15702"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -10,6 +9,7 @@
             <connections>
                 <outlet property="aboutLabel" destination="Jsr-Gg-QBy" id="KqW-Zy-Usn"/>
                 <outlet property="backgroundColorField" destination="yj5-j4-cb7" id="gaQ-MO-Al7"/>
+                <outlet property="configOKButton" destination="bmb-ga-jzo" id="FjN-bS-cGF"/>
                 <outlet property="configSheet" destination="g9w-0r-gy6" id="3gg-Oa-p5D"/>
                 <outlet property="customURLField" destination="94d-A4-zhM" id="M3V-ig-GlC"/>
                 <outlet property="dynamicGroundStationURLField" destination="vO6-Fd-YpP" id="8eq-v2-CxG"/>
@@ -36,7 +36,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="272" y="172" width="561" height="348"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <view key="contentView" id="Jae-bV-lBV">
                 <rect key="frame" x="0.0" y="0.0" width="561" height="348"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -122,14 +122,14 @@ Gw
                                             </connections>
                                         </button>
                                         <colorWell translatesAutoresizingMaskIntoConstraints="NO" id="leM-5j-drI">
-                                            <rect key="frame" x="17" y="74" width="44" height="23"/>
+                                            <rect key="frame" x="17" y="75" width="44" height="22"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="44" id="aKL-3n-J2m"/>
                                             </constraints>
                                             <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </colorWell>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WFU-gT-dfy">
-                                            <rect key="frame" x="67" y="77" width="191" height="17"/>
+                                            <rect key="frame" x="67" y="78" width="191" height="16"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="187" id="E6n-wN-91L"/>
                                             </constraints>
@@ -140,11 +140,11 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <colorWell translatesAutoresizingMaskIntoConstraints="NO" id="JSn-yw-ncI">
-                                            <rect key="frame" x="17" y="46" width="44" height="23"/>
+                                            <rect key="frame" x="17" y="48" width="44" height="22"/>
                                             <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </colorWell>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pbh-iV-u6I">
-                                            <rect key="frame" x="67" y="49" width="191" height="17"/>
+                                            <rect key="frame" x="67" y="51" width="191" height="16"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Map Color" id="0fZ-Y0-wWN">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -152,14 +152,14 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <colorWell translatesAutoresizingMaskIntoConstraints="NO" id="Qu9-44-KrX">
-                                            <rect key="frame" x="264" y="71" width="44" height="23"/>
+                                            <rect key="frame" x="264" y="72" width="44" height="22"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="44" id="eSr-VN-fGg"/>
                                             </constraints>
                                             <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </colorWell>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="r9a-wD-v6C">
-                                            <rect key="frame" x="314" y="74" width="67" height="17"/>
+                                            <rect key="frame" x="314" y="75" width="67" height="16"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="63" id="ZMc-VY-asR"/>
                                             </constraints>
@@ -170,11 +170,11 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <colorWell translatesAutoresizingMaskIntoConstraints="NO" id="yj5-j4-cb7">
-                                            <rect key="frame" x="264" y="43" width="44" height="23"/>
+                                            <rect key="frame" x="264" y="45" width="44" height="22"/>
                                             <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </colorWell>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6zp-y9-2ZO">
-                                            <rect key="frame" x="314" y="46" width="113" height="17"/>
+                                            <rect key="frame" x="314" y="48" width="113" height="16"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Background Color" id="5sZ-4d-JiU">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -244,7 +244,7 @@ Gw
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fdt-OQ-elF">
-                                            <rect key="frame" x="3" y="90" width="521" height="22"/>
+                                            <rect key="frame" x="3" y="97" width="521" height="21"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Comma Separated list of names to show." drawsBackground="YES" id="VrE-My-lug">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -252,7 +252,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sOa-yx-EBQ">
-                                            <rect key="frame" x="1" y="214" width="106" height="20"/>
+                                            <rect key="frame" x="1" y="218" width="106" height="16"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="TLE Source URL" id="NCp-Pm-TWd">
                                                 <font key="font" size="13" name="HelveticaNeue-Bold"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -260,7 +260,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="t18-Ym-GIs">
-                                            <rect key="frame" x="1" y="120" width="113" height="17"/>
+                                            <rect key="frame" x="1" y="126" width="113" height="16"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Filter Spacecraft" id="ZDw-mK-V5g">
                                                 <font key="font" metaFont="systemBold"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -268,7 +268,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6Rv-vz-U1a">
-                                            <rect key="frame" x="1" y="148" width="525" height="28"/>
+                                            <rect key="frame" x="1" y="153" width="525" height="28"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="28" id="sPg-DB-9Rw"/>
                                             </constraints>
@@ -279,7 +279,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="A2e-jz-Nm0">
-                                            <rect key="frame" x="1" y="54" width="525" height="28"/>
+                                            <rect key="frame" x="1" y="61" width="525" height="28"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="28" id="0qx-7M-Csn"/>
                                             </constraints>
@@ -290,7 +290,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <comboBox verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="94d-A4-zhM">
-                                            <rect key="frame" x="3" y="180" width="524" height="26"/>
+                                            <rect key="frame" x="3" y="185" width="524" height="25"/>
                                             <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" numberOfVisibleItems="5" id="2ow-1F-BiQ">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -381,7 +381,7 @@ Gw
                                             </scroller>
                                         </scrollView>
                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vO6-Fd-YpP">
-                                            <rect key="frame" x="117" y="188" width="393" height="22"/>
+                                            <rect key="frame" x="117" y="188" width="393" height="21"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="https://public.richinfante.com/stations.json" drawsBackground="YES" id="ygd-dV-fQ1">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -494,7 +494,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="V8K-uL-bUa">
-                                            <rect key="frame" x="15" y="145" width="230" height="17"/>
+                                            <rect key="frame" x="15" y="146" width="230" height="16"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Update / Deployment Manifest URL" id="bEh-Aa-efo">
                                                 <font key="font" metaFont="systemBold"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -502,7 +502,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZBK-0h-4cB">
-                                            <rect key="frame" x="15" y="90" width="470" height="17"/>
+                                            <rect key="frame" x="15" y="93" width="468" height="16"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="This is used for update checks, etc. You probably will never need to change it." id="vOt-sR-Jtl">
                                                 <font key="font" metaFont="systemLight" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>

@@ -11,12 +11,19 @@
 #import "satellite_saver_2View.h"
 #import "../rust/src/bridge.h"
 #import "Satellite-Swift.h"
+#import <CocoaLumberjack/CocoaLumberjack.h>
+#import "PrefixHeader.pch"
 
 @implementation satellite_saver_2View
 
 - (instancetype)initWithFrame:(NSRect)frame isPreview:(BOOL)isPreview
 {
     self = [super initWithFrame:frame isPreview:isPreview];
+    [self setup];
+    return self;
+}
+
+-(void)setup {
     if (self) {
         self.tleFetcher = [[TLEFetcher alloc] init];
         self.groundStationProvider = [[GroundStationProvider alloc] init];
@@ -56,30 +63,30 @@
         DDFileLogger *fileLogger = [[DDFileLogger alloc] init]; // File Logger
         
         fileLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
-
+        
         fileLogger.logFileManager.maximumNumberOfLogFiles = 7;
         [DDLog addLogger:fileLogger];
         
         self.fileLogger = fileLogger;
         
         DDLogInfo(@"Initializing Satellite Saver.");
-
+        
         
         [self loadDefaults];
         
         // Set initial deploy config.
         self.hasUpdates = NO;
         self.deploymentManifest = nil;
-
+        
         // BEGIN VERSION CHECKING -- delete if not needed.
         NSURL* manifestURL = [[NSURL alloc] initWithString: self.manifestURL];
-
+        
         // Check for updates
         [DeploymentManifest initFromUrlWithUrl:manifestURL completion:^(DeploymentManifest* manifest){
             self.deploymentManifest = manifest;
             
             DDLogInfo(@"Needs Software Update: %d", [manifest needsUpdate]);
-
+            
             // If update is needed, set info.
             if ([manifest needsUpdate]) {
                 DDLogInfo(@"Update URL: %@", [manifest updateUrl]);
@@ -94,7 +101,6 @@
         }];
         // END VERSION CHECKING
     }
-    return self;
 }
 
 
@@ -265,6 +271,14 @@
     
 }
 
+-(bool)shouldHideLabelsForPreview{
+    if ([self bounds].size.width < 400) {
+        return YES;
+    }
+    
+    return NO;
+}
+
 -(void)drawMarkerAtGPS:(NSPoint*) coords color:(NSColor*) color markerSize:(CGFloat)markerSize{
     NSRect gpscoord = NSMakeRect(-180.0, -90.0, 360.0, 180.0);
     NSRect bounds = NSMakeRect(self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height);
@@ -286,6 +300,10 @@
     
     NSFont* satelliteFont = [NSFont fontWithName:@"Menlo" size:fontSize];
     
+    if (satelliteFont == nil) {
+        satelliteFont = [NSFont systemFontOfSize:fontSize];
+    }
+
     NSSize size = [text sizeWithAttributes: @{
         NSFontAttributeName: satelliteFont
     }];
@@ -399,14 +417,22 @@
         NSPoint p0 = [self convertCoordinateSpace:&p0_init fromSpace:&gpscoord toSpace: &bounds];
         NSPoint p1_init = NSMakePoint(t.track[i+1].longitude, t.track[i+1].latitude);
         NSPoint p1 = [self convertCoordinateSpace:&p1_init fromSpace:&gpscoord toSpace: &bounds];
-
+        
+        // Skip drawing horizontal lines near the poles
+        if (fabs(p0_init.y) > 85 && fabs(p1_init.y) > 85) {
+            continue;
+        }
+        
         // Calculate the horizontal trajectory between the last two
         float bias = p0.x - last.x;
         float new_bias = p1.x - p0.x;
         
         // If biases are the same, paint them.
-        if ((bias > 0 && new_bias > 0) ||
-            (bias < 0 && new_bias < 0)) {
+        if (
+            (bias > 0 && new_bias > 0) || // Biases are same
+            (bias < 0 && new_bias < 0) || // Biases are same
+            fabs(p0_init.x) < 90 // Close to equator
+        ) {
             
             // Draw
             [control1 moveToPoint:p0];
@@ -566,7 +592,7 @@
             [self drawMarkerAtGPS:&coords color: color markerSize: boxRad];
         }
         
-        if (![self isPreview] && self.enableLabels) {
+        if (![self shouldHideLabelsForPreview] && self.enableLabels) {
             for (GroundStation* station in [stations reverseObjectEnumerator]) {
                 if (station.title) {
                     NSPoint coords = [station getCoords];
@@ -595,7 +621,7 @@
         [self drawMarker: tle];
     }
 
-    if (![self isPreview] && self.enableLabels) {
+    if (![self shouldHideLabelsForPreview] && self.enableLabels) {
         // Draw marker texts
         for (TLE* tle in [tles reverseObjectEnumerator]) {
             [self drawMarkerText: tle];
