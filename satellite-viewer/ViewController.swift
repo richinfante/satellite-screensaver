@@ -10,26 +10,25 @@ import Cocoa
 import Foundation
 import CocoaLumberjack
 
-class CustomWindow : NSWindow {
-    
-}
-
 class ViewController: NSViewController {
     
     var ssview: satellite_saver_2View! = nil
     var configWindow : NSWindow? = nil
     var renderTimer : Timer! = nil
+    
+    /// Entry point for the view controller
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
+        // Set window titles & behavior
         self.title = "Satellite Tracker"
         self.window?.title = "Satellite Tracker"
         self.window?.standardWindowButton(.closeButton)?.isEnabled = false
 
+        // Attach the screensaver to the view
         self.ssview = self.view as? satellite_saver_2View
         
+        // If it fails, print error.
         if ssview == nil {
             print("Failed to setup ssview as screen saver")
         }
@@ -50,6 +49,7 @@ class ViewController: NSViewController {
         }
     }
     
+    /// Perform a render tick of the screensaver
     @objc func renderTick() {
         DispatchQueue.main.async {
             self.ssview.setNeedsDisplay(self.ssview.bounds)
@@ -63,7 +63,6 @@ class ViewController: NSViewController {
 
     /// Present preferences window
     @objc func showPrefs(_ sender: AnyObject?) {
-        
         self.configWindow = self.ssview.configureSheet
         self.window?.beginSheet(self.configWindow!, completionHandler: nil)
     }
